@@ -1,6 +1,0 @@
-RewriteEngine On
-RewriteBase /docs
-
-# Redirect to CSS and JS files
-RewriteRule ^css/(.*)$ /docs/css/$1 [L]
-RewriteRule ^js/(.*)$ /docs/js/$1 [L]
