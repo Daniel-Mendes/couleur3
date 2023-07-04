@@ -1,3 +1,4 @@
+import "./bootstrap";
 import "../css/app.css";
 
 import { createApp, h } from "vue";
@@ -13,8 +14,7 @@ import { ZoraVue } from "zora";
 import { Zora } from "./zora.js";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
-const appName =
-    window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
+const appName = window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 
 const i18n = createI18n({
     locale: "fr",
@@ -30,20 +30,12 @@ pinia.use(piniaPluginPersistedstate);
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>
-        resolvePageComponent(
-            `./views/pages/${name}.vue`,
-            import.meta.glob("./views/pages/**/*.vue")
-        ),
+    resolve: async (name: string) =>
+        await resolvePageComponent(`../views/pages/${name}.vue`, import.meta.glob("../views/pages/**/*.vue")),
     setup({ el, App, props, plugin }) {
         const VueApp = createApp({ render: () => h(App, props) });
 
-        VueApp.use(plugin)
-            .use(i18n)
-            .use(pinia)
-            .use(trail, { routes })
-            .use(ZoraVue, Zora)
-            .mount(el);
+        VueApp.use(plugin).use(i18n).use(pinia).use(trail, { routes }).use(ZoraVue, Zora).mount(el);
     },
     progress: {
         color: "#4B5563",

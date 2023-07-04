@@ -1,26 +1,26 @@
 <!-- eslint-disable no-undef -->
-<script setup>
-import Checkbox from "@/Components/Auditor/Bases/Checkbox.vue";
-import AuditorLayout from "@/Layouts/AuditorLayout.vue";
-import InputError from "@/Components/InputError.vue";
-import ProfileButton from "@/Components/Auditor/Bases/ProfileButton.vue";
-import TextInput from "@/Components/Auditor/Bases/TextInput.vue";
+<script lang="ts" setup>
+import Checkbox from "@/views/components/Auditor/Bases/Checkbox.vue";
+import LayoutAuditor from "@/views/layouts/auditor/layout-auditor.vue";
+import InputError from "@/views/components/InputError.vue";
+import ProfileButton from "@/views/components/Auditor/Bases/Button/ButtonProfile.vue";
+import TextInput from "@/views/components/Auditor/Bases/TextInput/TextInput.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import { useForm } from "laravel-precognition-vue-inertia";
 
-defineProps({
+defineProps<{
     canResetPassword: {
-        type: Boolean,
-    },
+        type: Boolean;
+    };
     status: {
-        type: String,
-        default: "",
-    },
-    auth: {
-        type: Object,
-        required: true,
-    },
-});
+        type: String;
+        default: "";
+    };
+    user: {
+        type: Object;
+        required: true;
+    };
+}>();
 
 const form = useForm("post", route("login"), {
     email: "",
@@ -36,22 +36,22 @@ const submit = () =>
 </script>
 
 <template>
-    <AuditorLayout :auth-inf="auth.user">
+    <LayoutAuditor :user="user">
         <Head title="Login" />
 
         <div
             id="login"
-            class="flex flex-col justify-center items-center px-3.5 h-screen"
-        >
-            <h2 class="font-semibold text-3xl mb-5">Login</h2>
-            <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+            class="flex h-screen flex-col items-center justify-center px-3.5">
+            <h2 class="mb-5 text-3xl font-semibold">Login</h2>
+            <div
+                v-if="status"
+                class="mb-4 text-sm font-medium text-green-600">
                 {{ status }}
             </div>
 
             <form
-                class="w-full flex flex-col items-center"
-                @submit.prevent="submit"
-            >
+                class="flex w-full flex-col items-center"
+                @submit.prevent="submit">
                 <div class="w-full">
                     <TextInput
                         id="email"
@@ -62,11 +62,12 @@ const submit = () =>
                         required
                         autofocus
                         autocomplete="username"
-                        @change="form.validate('email')"
-                    />
-                    <InputError class="mt-2" :message="form.errors.email" />
+                        @change="form.validate('email')" />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.email" />
                 </div>
-                <div class="w-full mt-4">
+                <div class="mt-4 w-full">
                     <TextInput
                         id="password"
                         v-model="form.password"
@@ -75,36 +76,31 @@ const submit = () =>
                         class="mt-1 block w-full"
                         required
                         autocomplete="current-password"
-                        @change="form.validate('password')"
-                    />
-                    <InputError class="mt-2" :message="form.errors.password" />
+                        @change="form.validate('password')" />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.password" />
                 </div>
 
-                <div class="block mt-4">
+                <div class="mt-4 block">
                     <label class="flex items-center">
                         <Checkbox
                             v-model:checked="form.remember"
-                            name="remember"
-                        />
-                        <span
-                            class="ml-2 text-base text-base-100 dark:text-base-100"
-                            >Se rappeler de moi</span
-                        >
+                            name="remember" />
+                        <span class="ml-2 text-base text-base-100 dark:text-base-100">Se rappeler de moi</span>
                     </label>
                 </div>
-                <div class="flex flex-col items-center mt-8 gap-y-4">
+                <div class="mt-8 flex flex-col items-center gap-y-4">
                     <ProfileButton
                         :class="{ 'opacity-25': form.processing }"
                         :outlined="true"
-                        :disabled="form.processing"
-                    >
+                        :disabled="form.processing">
                         Se connecter
                     </ProfileButton>
                     <Link
                         v-if="canResetPassword"
                         :href="route('password.request')"
-                        class="underline text-sm text-base-100 dark:text-base-100 hover:text-base-100 dark:hover:text-base-100"
-                    >
+                        class="text-sm text-base-100 underline hover:text-base-100 dark:text-base-100 dark:hover:text-base-100">
                         Mot de passe oublié ?
                     </Link>
                 </div>
@@ -112,10 +108,9 @@ const submit = () =>
             <ProfileButton
                 :class="{ 'opacity-25': form.processing }"
                 :outlined="false"
-                :disabled="form.processing"
-            >
+                :disabled="form.processing">
                 <a :href="route('register')"> S'enregistrer</a>
             </ProfileButton>
         </div>
-    </AuditorLayout>
+    </LayoutAuditor>
 </template>

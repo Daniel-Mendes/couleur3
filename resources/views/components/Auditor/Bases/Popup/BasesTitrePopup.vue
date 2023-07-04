@@ -1,18 +1,18 @@
-<script setup>
-const props = defineProps({
+<script lang="ts" setup>
+const props = defineProps<{
     icone: {
-        type: String,
-        required: true,
-    },
-});
+        type: String;
+        required: true;
+    };
+}>();
 </script>
 
 <template>
-    <div class="flex flex-col mb-6">
-        <span class="material-symbols-rounded text-8xl text-center">
+    <div class="mb-6 flex flex-col">
+        <span class="material-symbols-rounded text-center text-8xl">
             {{ props.icone }}
         </span>
-        <p class="font-extrabold text-xl text-center">
+        <p class="text-center text-xl font-extrabold">
             <slot />
         </p>
     </div>

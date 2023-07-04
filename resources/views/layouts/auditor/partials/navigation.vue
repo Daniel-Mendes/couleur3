@@ -1,13 +1,10 @@
-<script setup>
-import { ref } from "vue";
-
-// permet de récupérer la personne authentifiée si elle existe
-const props = defineProps({
-    authInf: {
-        type: Object,
-        default: null,
-    },
-});
+<script lang="ts" setup>
+const props = defineProps<{
+    user: {
+        type: Object;
+        default: null;
+    };
+}>();
 
 // Créer une référence aux boutons de navigation
 const buttons = ref([
@@ -19,13 +16,10 @@ const buttons = ref([
 
 // Fonction appelée lorsqu'on clique sur un bouton
 function handleButtonClick(index) {
-    if (buttons.value[index].name === "person" && props.authInf === null) {
+    if (buttons.value[index].name === "person" && props.user === null) {
         // Rediriger vers la page de login si l'utilisateur est pas connecté
         window.location.href = "/login";
-    } else if (
-        buttons.value[index].name === "person" &&
-        props.authInf !== null
-    ) {
+    } else if (buttons.value[index].name === "person" && props.user !== null) {
         // Rediriger vers la page de profil si l'utilisateur est connecté
         window.location.href = "/profile";
     } else if (buttons.value[index].name === "smart_display") {
@@ -41,30 +35,26 @@ function handleButtonClick(index) {
 </script>
 
 <template>
-    <div class="btm-nav h-16 fixed bottom-0 bg-black">
+    <div class="btm-nav fixed bottom-0 h-16 bg-black">
         <button
             v-for="(button, index) in buttons"
             :key="index"
             :class="['bg-black', { active: button.active }]"
-            @click="handleButtonClick(index)"
-        >
+            @click="handleButtonClick(index)">
             <span
                 v-if="button.name !== 'person'"
-                class="material-symbols-rounded text-3xl"
-            >
+                class="material-symbols-rounded text-3xl">
                 {{ button.name }}
             </span>
             <span
-                v-if="button.name === 'person' && authInf === null"
-                class="material-symbols-rounded text-3xl"
-            >
+                v-if="button.name === 'person' && user === null"
+                class="material-symbols-rounded text-3xl">
                 {{ button.name }}
             </span>
             <span
-                v-if="button.name === 'person' && authInf !== null"
-                class="bg-base-100 text-black font-bold h-9 w-9 flex items-center justify-center rounded-full"
-            >
-                <span>{{ authInf.name[0] }}</span>
+                v-if="button.name === 'person' && user !== null"
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-base-100 font-bold text-black">
+                <span>{{ user.name[0] }}</span>
             </span>
         </button>
     </div>

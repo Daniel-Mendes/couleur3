@@ -4,9 +4,9 @@ import vue from "@vitejs/plugin-vue";
 import eslintPlugin from "vite-plugin-eslint";
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 import { VitePWA } from "vite-plugin-pwa";
-import watch from "vite-watch-run"
-import autoimport from "unplugin-auto-import/vite"
-import components from "unplugin-vue-components/vite"
+import { watch } from "vite-plugin-watch";
+import autoimport from "unplugin-auto-import/vite";
+import components from "unplugin-vue-components/vite";
 
 export default defineConfig({
     resolve: {
@@ -61,16 +61,14 @@ export default defineConfig({
                 ],
             },
         }),
-        watch(
-            {
-                pattern: "app/{Data,Enums}/**/*.php",
-                command: "php artisan typescript:transform"
-            },
-            {
-                pattern: "routes/*.php",
-                command: "php artisan trail:generate",
-            }
-        ),
+        watch({
+            pattern: "app/{Data,Enums}/**/*.php",
+            command: "php artisan typescript:transform",
+        }),
+        watch({
+            pattern: "routes/*.php",
+            command: "php artisan trail:generate",
+        }),
         autoimport({
             vueTemplate: true,
             dts: "resources/scripts/types/auto-imports.d.ts",
@@ -82,14 +80,14 @@ export default defineConfig({
             ],
         }),
         components({
-            dirs: ["resources/views/components"],
+            dirs: ["resources/views/components", "resources/pages/**/partials"],
             dts: "resources/scripts/types/components.d.ts",
             resolvers: [
                 (name: string) => {
-                    const components = ["Link", "Head"]
+                    const components = ["Link", "Head"];
 
                     if (components.includes(name)) {
-                        return { name, from: "@inertiajs/vue3" }
+                        return { name, from: "@inertiajs/vue3" };
                     }
                 },
             ],

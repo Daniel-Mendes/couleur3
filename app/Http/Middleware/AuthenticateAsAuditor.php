@@ -17,7 +17,7 @@ class AuthenticateAsAuditor
     public function handle(Request $request, Closure $next): Response
     {
         if (! $request->user()->isAuditor()) {
-            return Inertia::render('Error', [
+            return Inertia::render('error/page', [
                 'status' => '403: '.__('http-statuses.403'),
                 'message' => "Vous n'êtes pas un auditeur.",
             ])->toResponse($request)->setStatusCode(403);

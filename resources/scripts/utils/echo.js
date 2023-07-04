@@ -1,4 +1,4 @@
-import Echo from "laravel-echo"
+import Echo from "laravel-echo";
 
 export default new Echo({
     broadcaster: "pusher",

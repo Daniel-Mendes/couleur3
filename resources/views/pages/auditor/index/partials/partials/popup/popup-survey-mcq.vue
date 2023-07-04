@@ -1,8 +1,8 @@
 <!-- eslint-disable no-undef -->
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from "vue";
-import InteractionType from "@/Enums/InteractionType.js";
-import { useInteractionStore } from "@/Stores/useInteractionStore.js";
+import InteractionType from "@/scripts/enums/InteractionType.js";
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 import { storeToRefs } from "pinia";
 import { router } from "@inertiajs/vue3";
 
@@ -52,10 +52,7 @@ function responseAuditor(choiceId) {
 
 const submit = (choiceId) => {
     router.post(
-        route(
-            `interactions.answers.${currentInteraction.value.type.toLowerCase()}.store`,
-            currentInteraction.value.id
-        ),
+        route(`interactions.answers.${currentInteraction.value.type.toLowerCase()}.store`, currentInteraction.value.id),
         {
             questionChoiceChosed: choiceId,
         }
@@ -64,11 +61,12 @@ const submit = (choiceId) => {
 </script>
 
 <template>
-    <form class="container flex flex-col gap-y-3" @submit.prevent="submit">
+    <form
+        class="container flex flex-col gap-y-3"
+        @submit.prevent="submit">
         <div
             v-for="(choice, index) in currentInteraction.question_choices"
-            :key="choice.id"
-        >
+            :key="choice.id">
             <input
                 :id="'choice-' + index"
                 type="radio"
@@ -76,41 +74,27 @@ const submit = (choiceId) => {
                 name="SurveyMCQ"
                 :disabled="isDisabled || hasAnswerd"
                 :value="choice.value"
-                @change="responseAuditor(choice.id)"
-            />
+                @change="responseAuditor(choice.id)" />
             <label
-                ref="choices"
                 :for="'choice-' + index"
-                class="choiceButton bg-base-100/50 px-3.5 h-12 rounded-3xl items-center flex relative overflow-hidden"
-            >
+                class="choiceButton relative flex h-12 items-center overflow-hidden rounded-3xl bg-base-100/50 px-3.5">
                 <span
                     v-if="currentInteraction.type === InteractionType.MCQ"
-                    class="propositionSolution"
-                >
+                    class="propositionSolution">
                     <span
-                        v-if="
-                            (hasAnswerd || isDisabled) &&
-                            choice.is_correct_answer === 0
-                        "
-                        class="material-symbols-rounded align-middle"
-                    >
+                        v-if="(hasAnswerd || isDisabled) && choice.is_correct_answer === 0"
+                        class="material-symbols-rounded align-middle">
                         close
                     </span>
                     <span
-                        v-if="
-                            (hasAnswerd || isDisabled) &&
-                            choice.is_correct_answer === 1
-                        "
-                        class="material-symbols-rounded align-middle"
-                    >
+                        v-if="(hasAnswerd || isDisabled) && choice.is_correct_answer === 1"
+                        class="material-symbols-rounded align-middle">
                         done
                     </span>
                 </span>
                 <span>{{ choice.value }}</span>
                 <span class="answers">
-                    <span v-if="isDisabled || hasAnswerd"
-                        >{{ statsChoices[index] }}%</span
-                    >
+                    <span v-if="isDisabled || hasAnswerd">{{ statsChoices[index] }}%</span>
                 </span>
             </label>
         </div>

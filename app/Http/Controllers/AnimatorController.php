@@ -14,7 +14,7 @@ class AnimatorController extends Controller
 {
     public function index(GeneralSettings $settings)
     {
-        return Inertia::render('Animator/Index', [
+        return Inertia::render('animator/index/page', [
             'chatEnabled' => $settings->chat_enabled,
             'interaction' => Interaction::pending()->with([
                 'answers' => [

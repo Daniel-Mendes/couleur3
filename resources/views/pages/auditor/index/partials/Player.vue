@@ -1,22 +1,20 @@
 <template>
-    <div id="player_container" class="flex"></div>
+    <div
+        id="player_container"
+        class="flex"></div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
     async beforeMount() {
-        await this.loadExternalScript(
-            "https://letterbox-web.srgssr.ch/production/letterbox.js"
-        );
+        await this.loadExternalScript("https://letterbox-web.srgssr.ch/production/letterbox.js");
         this.letterbox = new window.SRGLetterbox({
             container: "#player_container",
         });
         this.letterbox.loadUrn("urn:rts:video:8841634");
     },
     created() {
-        this.loadExternalStylesheet(
-            "https://letterbox-web.srgssr.ch/production/letterbox.css"
-        );
+        this.loadExternalStylesheet("https://letterbox-web.srgssr.ch/production/letterbox.css");
     },
     methods: {
         loadExternalScript(src) {

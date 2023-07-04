@@ -1,19 +1,16 @@
-<script setup>
-import TheHeader from "@/Components/Auditor/TheHeader.vue";
-import TheNavigation from "@/Components/Auditor/TheNavigation.vue";
+<script lang="ts" setup>
+import Header from "./partials/header.vue";
+import Navigation from "./partials/navigation.vue";
 
-defineProps({
-    authInf: {
-        type: Object,
-        default: null,
-    },
-});
+defineProps<{
+    user: Object | null;
+}>();
 </script>
 
 <template>
-    <div class="bg-black text-base-100 mb-16 relative">
-        <TheHeader />
+    <div class="relative mb-16 bg-black text-base-100">
+        <Header />
         <slot />
-        <TheNavigation :auth-inf="authInf" />
+        <Navigation :user="user" />
     </div>
 </template>

@@ -1,10 +1,8 @@
 <!-- eslint-disable no-undef -->
-<script setup>
-import { ref, reactive } from "vue";
-import formatDateToHoursMinutes from "@/Utils/date";
-import { useChatStore } from "@/Stores/useChatStore.js";
+<script lang="ts" setup>
+import formatDateToHoursMinutes from "@/scripts/utils/date";
+import { useChatStore } from "@/scripts/stores/useChatStore.js";
 import { storeToRefs } from "pinia";
-import { router } from "@inertiajs/vue3";
 
 const chatStore = useChatStore();
 const { isChatEnabled, messages } = storeToRefs(chatStore);
@@ -30,19 +28,14 @@ const submitMessage = () => {
 // regarde si le tchat est ouvert ou non
 function check($event) {
     if ($event.target.checked) {
-        const heightHeaderPlayer =
-            document.querySelector("#the-header").getBoundingClientRect()
-                .height + "px";
+        const heightHeaderPlayer = document.querySelector("#the-header").getBoundingClientRect().height + "px";
         document.querySelectorAll("body, #the-header").forEach((element) => {
             element.classList.add("chat-open");
         });
         document.querySelector("#fixed-container").classList.add("bg-black");
-        document.querySelector("#description-live").style.marginTop =
-            heightHeaderPlayer;
-        document.querySelector("#fixed-container").style.top =
-            heightHeaderPlayer;
-        document.querySelector("#chat-auditor").style.gridTemplateRows =
-            "auto 1fr";
+        document.querySelector("#description-live").style.marginTop = heightHeaderPlayer;
+        document.querySelector("#fixed-container").style.top = heightHeaderPlayer;
+        document.querySelector("#chat-auditor").style.gridTemplateRows = "auto 1fr";
     } else {
         document.querySelectorAll("body, #the-header").forEach((element) => {
             element.classList.remove("chat-open");
@@ -59,38 +52,30 @@ function check($event) {
     <!-- Menu dépliant -->
     <div
         id="chat-auditor"
-        class="collapse bg-blue-auditor rounded-t-[44px] rounded-b-none"
-    >
+        class="bg-blue-auditor collapse rounded-b-none rounded-t-[44px]">
         <!-- Bouton pour déplier le menu-->
         <input
             type="checkbox"
-            class="w-full h-11 min-h-0"
-            @change="check($event)"
-        />
-        <div
-            class="collapse-title text-base font-extrabold h-11 min-h-0 p-0 flex items-center justify-center"
-        >
+            class="h-11 min-h-0 w-full"
+            @change="check($event)" />
+        <div class="collapse-title flex h-11 min-h-0 items-center justify-center p-0 text-base font-extrabold">
             Chat {{ isChatEnabled ? "" : "(désactivé par l'animateur)"
-            }}<span
-                class="material-symbols-rounded ml-1 align-middle transition-transform"
-            >
-                expand_less
-            </span>
+            }}<span class="material-symbols-rounded ml-1 align-middle transition-transform"> expand_less </span>
         </div>
         <!-- Contenu du menu dépliant -->
-        <div class="collapse-content px-3.5 flex flex-col gap-y-3.5">
+        <div class="collapse-content flex flex-col gap-y-3.5 px-3.5">
             <!-- Messages dans le chat -->
-            <div class="overflow-y-scroll h-2 grow flex flex-col-reverse">
+            <div class="flex h-2 grow flex-col-reverse overflow-y-scroll">
                 <!-- Ajouter les nouveaux message ici-->
-                <div v-if="messages && isChatEnabled" ref="messageContainer">
-                    <p v-for="msg in messages" :key="msg.id" class="font-light">
-                        <span class="text-base-100 opacity-70">
-                            {{
-                                formatDateToHoursMinutes(msg.created_at)
-                            }} </span
-                        ><span class="ml-2 font-bold"
-                            >{{ msg.user_name }} : </span
-                        ><span>{{ msg.content }}</span>
+                <div
+                    v-if="messages && isChatEnabled"
+                    ref="messageContainer">
+                    <p
+                        v-for="msg in messages"
+                        :key="msg.id"
+                        class="font-light">
+                        <span class="text-base-100 opacity-70"> {{ formatDateToHoursMinutes(msg.created_at) }} </span
+                        ><span class="ml-2 font-bold">{{ msg.user_name }} : </span><span>{{ msg.content }}</span>
                     </p>
                 </div>
             </div>
@@ -102,22 +87,16 @@ function check($event) {
                             id="message"
                             v-model="form.content"
                             type="text"
-                            class="bg-blue-auditor rounded-full border-base-100 grow focus:border-base-100 focus:outline-0 placeholder:font-extralight"
+                            class="bg-blue-auditor grow rounded-full border-base-100 placeholder:font-extralight focus:border-base-100 focus:outline-0"
                             required
                             autofocus
                             placeholder="Message…"
                             :disabled="form.processing || !isChatEnabled"
-                            @keyup.enter="submitMessage"
-                        />
+                            @keyup.enter="submitMessage" />
                         <button
-                            class="border border-base-100 flex items-center justify-center w-16 rounded-full bg-base-100"
-                            type="submit"
-                        >
-                            <span
-                                class="material-symbols-rounded align-middle text-blue-auditor"
-                            >
-                                send
-                            </span>
+                            class="flex w-16 items-center justify-center rounded-full border border-base-100 bg-base-100"
+                            type="submit">
+                            <span class="material-symbols-rounded text-blue-auditor align-middle"> send </span>
                         </button>
                     </div>
                     <div v-show="form.errors.message">

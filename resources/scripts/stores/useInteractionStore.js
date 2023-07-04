@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 import { computed, reactive, toRefs, onMounted, watch, watchEffect } from "vue";
 import { usePage, router } from "@inertiajs/vue3";
+import echo from "@/scripts/utils/echo";
 
 export const useInteractionStore = defineStore(
     "interaction",
@@ -23,16 +24,14 @@ export const useInteractionStore = defineStore(
         });
 
         const notPinnedAnswers = computed(() =>
-            state.currentInteraction?.answers.filter(
-                (answer) => !state.pinnedAnswers.includes(answer)
-            )
+            state.currentInteraction?.answers.filter((answer) => !state.pinnedAnswers.includes(answer))
         );
 
         watch(
             () => state.currentInteraction,
             (newValue, oldValue) => {
                 if (oldValue) {
-                    window.Echo.leaveChannel(`interactions.${oldValue.id}`);
+                    echo.leaveChannel(`interactions.${oldValue.id}`);
                 }
 
                 if (newValue) {
@@ -42,24 +41,18 @@ export const useInteractionStore = defineStore(
         );
 
         watch(
-            () => page.props.auth.user,
+            () => page.props.user,
             (newValue, oldValue) => {
                 if (oldValue) {
-                    window.Echo.leaveChannel(`auditors.${oldValue.id}`);
+                    echo.leaveChannel(`auditors.${oldValue.id}`);
                 }
 
                 if (oldValue.id === newValue.id) return;
 
                 if (newValue) {
-                    if (
-                        newValue.roleable_type === "App\\Models\\Animator" &&
-                        state.currentInteraction
-                    ) {
+                    if (newValue.roleable_type === "App\\Models\\Animator" && state.currentInteraction) {
                         subscribeAnimatorToPrivateChannel();
-                    } else if (
-                        newValue.roleable_type === "App\\Models\\Auditor" &&
-                        state.currentInteraction
-                    ) {
+                    } else if (newValue.roleable_type === "App\\Models\\Auditor" && state.currentInteraction) {
                         subscribeAuditorToPrivateChannel();
                     }
                 }
@@ -74,26 +67,17 @@ export const useInteractionStore = defineStore(
         onMounted(() => {
             subscribeToPublicChannel();
 
-            if (!page.props.auth) return;
+            if (!page.props.user) return;
 
-            if (!page.props.auth.user) return;
-
-            if (
-                page.props.auth.user.roleable_type ===
-                    "App\\Models\\Animator" &&
-                state.currentInteraction
-            ) {
+            if (page.props.user.roleable_type === "App\\Models\\Animator" && state.currentInteraction) {
                 subscribeAnimatorToPrivateChannel();
-            } else if (
-                page.props.auth.user.roleable_type === "App\\Models\\Auditor" &&
-                state.currentInteraction
-            ) {
+            } else if (page.props.user.roleable_type === "App\\Models\\Auditor" && state.currentInteraction) {
                 subscribeAuditorToPrivateChannel();
             }
         });
 
         const subscribeToPublicChannel = () => {
-            window.Echo.channel("public")
+            echo.channel("public")
                 .listen("InteractionCreated", (event) => {
                     state.hasOpenedNotif = false;
                     state.hasBeenRewarded = null;
@@ -115,20 +99,15 @@ export const useInteractionStore = defineStore(
         };
 
         const subscribeAnimatorToPrivateChannel = () => {
-            window.Echo.private(
-                `interactions.${state.currentInteraction.id}`
-            ).listen("AnswerSubmitedToAnimator", (event) => {
+            echo.private(`interactions.${state.currentInteraction.id}`).listen("AnswerSubmitedToAnimator", (event) => {
                 state.currentInteraction.answers.push(event.answer);
             });
         };
 
         const subscribeAuditorToPrivateChannel = () => {
-            window.Echo.private(`auditors.${page.props.auth.user.id}`).listen(
-                "WinnerSentResult",
-                (event) => {
-                    state.hasBeenRewarded = event.reward;
-                }
-            );
+            echo.private(`auditors.${page.props.auth.user.id}`).listen("WinnerSentResult", (event) => {
+                state.hasBeenRewarded = event.reward;
+            });
         };
 
         const createdInteraction = () => {
@@ -144,16 +123,13 @@ export const useInteractionStore = defineStore(
         };
 
         const endInteraction = () => {
-            router.post(
-                route("interactions.end", state.currentInteraction.id),
-                {
-                    preserveScroll: true,
-                    only: ["interaction"],
-                    onSuccess: () => {
-                        cancelInteraction();
-                    },
-                }
-            );
+            router.post(route("interactions.end", state.currentInteraction.id), {
+                preserveScroll: true,
+                only: ["interaction"],
+                onSuccess: () => {
+                    cancelInteraction();
+                },
+            });
         };
 
         const addPinned = (answer) => {
@@ -165,10 +141,7 @@ export const useInteractionStore = defineStore(
         };
 
         const removeWinner = (choseWinner) => {
-            state.currentInteraction.winners.splice(
-                state.currentInteraction.indexOf(choseWinner),
-                1
-            );
+            state.currentInteraction.winners.splice(state.currentInteraction.indexOf(choseWinner), 1);
         };
 
         const updatePinnedAsChosedWinners = (chosedWinners) => {
@@ -176,10 +149,7 @@ export const useInteractionStore = defineStore(
                 if (!state.chosedWinners.includes(choseWinner)) {
                     state.chosedWinners.push(choseWinner);
                 } else {
-                    state.chosedWinners.splice(
-                        state.chosedWinners.indexOf(choseWinner),
-                        1
-                    );
+                    state.chosedWinners.splice(state.chosedWinners.indexOf(choseWinner), 1);
                 }
             });
         };
@@ -188,19 +158,13 @@ export const useInteractionStore = defineStore(
             if (!state.chosedWinners.includes(choseWinner)) {
                 state.chosedWinners.push(choseWinner);
             } else {
-                state.chosedWinners.splice(
-                    state.chosedWinners.indexOf(choseWinner),
-                    1
-                );
+                state.chosedWinners.splice(state.chosedWinners.indexOf(choseWinner), 1);
             }
         };
 
         const submitFastest = () => {
             router.post(
-                route(
-                    "interactions.winners.fastest",
-                    state.currentInteraction.id
-                ),
+                route("interactions.winners.fastest", state.currentInteraction.id),
                 {
                     winners_count: state.winnersCount,
                     reward_id: state.chosedReward,
@@ -218,10 +182,7 @@ export const useInteractionStore = defineStore(
 
         const submitRandom = () => {
             router.post(
-                route(
-                    "interactions.winners.random",
-                    state.currentInteraction.id
-                ),
+                route("interactions.winners.random", state.currentInteraction.id),
                 {
                     winners_count: state.winnersCount,
                     reward_id: state.chosedReward,
@@ -238,14 +199,9 @@ export const useInteractionStore = defineStore(
 
         const submitManual = () => {
             router.post(
-                route(
-                    "interactions.winners.confirm",
-                    state.currentInteraction.id
-                ),
+                route("interactions.winners.confirm", state.currentInteraction.id),
                 {
-                    winners: state.chosedWinners.map(
-                        (candidate) => candidate.auditor_id
-                    ),
+                    winners: state.chosedWinners.map((candidate) => candidate.auditor_id),
                     reward_id: state.chosedReward,
                 },
                 {

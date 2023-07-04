@@ -1,5 +1,5 @@
 <!-- eslint-disable no-undef -->
-<script setup>
+<script lang="ts" setup>
 import BaseButton from "@/Components/Animator/Bases/BaseButton.vue";
 import ChatView from "@/Components/Animator/Chat/ChatView.vue";
 import QuickClickIndex from "@/Components/Animator/QuickClick/QuickClickIndex.vue";
@@ -18,8 +18,7 @@ import { useInteractionStore } from "@/stores/useInteractionStore.js";
 import { storeToRefs } from "pinia";
 
 const interactionStore = useInteractionStore();
-const { isCreatingInteraction, currentInteraction } =
-    storeToRefs(interactionStore);
+const { isCreatingInteraction, currentInteraction } = storeToRefs(interactionStore);
 
 const endEmission = () => {
     router.post(route("animator.endEmission"));
@@ -28,27 +27,25 @@ const endEmission = () => {
 
 <template>
     <Head title="Dashboard" />
-    <div id="animator-container" class="max-h-screen h-screen p-5 flex gap-5">
-        <div class="basis-1/3 flex flex-auto flex-col max-h-full gap-3">
+    <div
+        id="animator-container"
+        class="flex h-screen max-h-screen gap-5 p-5">
+        <div class="flex max-h-full flex-auto basis-1/3 flex-col gap-3">
             <ChatView class="flex-auto" />
 
             <BaseButton
                 color="error"
-                class="flex-initial btn-block bg-opacity-50 text-white btn-lg"
-                @click="endEmission"
-            >
+                class="btn-block btn-lg flex-initial bg-opacity-50 text-white"
+                @click="endEmission">
                 Fin d'émission
             </BaseButton>
         </div>
 
-        <div class="basis-2/3 flex flex-col gap-3">
+        <div class="flex basis-2/3 flex-col gap-3">
             <template
                 v-if="
-                    !currentInteraction &&
-                    (!isCreatingInteraction ||
-                        InteractionType.isQuestion(isCreatingInteraction))
-                "
-            >
+                    !currentInteraction && (!isCreatingInteraction || InteractionType.isQuestion(isCreatingInteraction))
+                ">
                 <QuestionCreate />
             </template>
 
@@ -57,9 +54,7 @@ const endEmission = () => {
                 <QuickClickIndex />
             </template>
 
-            <QuickClickCreate
-                v-if="isCreatingInteraction == InteractionType.QUICK_CLICK"
-            />
+            <QuickClickCreate v-if="isCreatingInteraction == InteractionType.QUICK_CLICK" />
             <CtaCreate v-if="isCreatingInteraction === InteractionType.CTA" />
 
             <QuickClickShow
@@ -68,32 +63,24 @@ const endEmission = () => {
                     currentInteraction.type === InteractionType.QUICK_CLICK &&
                     currentInteraction.winners &&
                     currentInteraction.winners.length === 0
-                "
-            />
+                " />
             <CtaShow
                 v-if="
                     currentInteraction &&
                     currentInteraction.type === InteractionType.CTA &&
                     currentInteraction.winners &&
                     currentInteraction.winners.length === 0
-                "
-            />
+                " />
             <QuestionShow
                 v-if="
                     currentInteraction &&
                     InteractionType.isQuestion(currentInteraction.type) &&
                     currentInteraction.winners &&
                     currentInteraction.winners.length === 0
-                "
-            />
+                " />
 
             <EndingMessage
-                v-if="
-                    currentInteraction &&
-                    currentInteraction.winners &&
-                    currentInteraction.winners.length > 0
-                "
-            />
+                v-if="currentInteraction && currentInteraction.winners && currentInteraction.winners.length > 0" />
         </div>
     </div>
 </template>

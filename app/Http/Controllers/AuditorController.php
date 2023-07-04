@@ -11,7 +11,7 @@ class AuditorController extends Controller
 {
     public function index(GeneralSettings $settings): Response
     {
-        return Inertia::render('Auditor/Index', [
+        return Inertia::render('auditor/index/page', [
             'chatEnabled' => $settings->chat_enabled,
             'interaction' => Interaction::active()->with([
                 'answers' => [

@@ -1,35 +1,35 @@
-<script setup>
-import { useInteractionStore } from "@/Stores/useInteractionStore.js";
+<script lang="ts" setup>
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 import { storeToRefs } from "pinia";
 
-defineProps({
+defineProps<{
     id: {
-        type: String,
-        required: true,
-    },
-});
+        type: String;
+        required: true;
+    };
+}>();
 const interactionStore = useInteractionStore();
 const { hasOpenedNotif } = storeToRefs(interactionStore);
-
 </script>
 
 <template>
-    <div :id="id" class="chat chat-start self-start cursor-pointer py-2 px-3.5">
+    <div
+        :id="id"
+        class="chat chat-start cursor-pointer self-start px-3.5 py-2">
         <div class="chat-image avatar">
             <div class="w-10 rounded-full bg-base-100">
-                <img src="images/Bulle-COULEUR3.svg" alt="Logo Couleur 3" />
+                <img
+                    src="images/Bulle-COULEUR3.svg"
+                    alt="Logo Couleur 3" />
             </div>
         </div>
-        <div
-            class="chat-bubble gradient-auditor text-black font-bold text-lg relative max-w-none"
-        >
+        <div class="gradient-auditor chat-bubble relative max-w-none text-lg font-bold text-black">
             <slot />
             <div
                 v-if="!hasOpenedNotif"
-                class="indicator absolute top-0 right-0 mt-1 mr-1"
-            >
-                <span class="indicator-item badge bg-info border-info"></span>
-                <div class="grid w-32 h-32"></div>
+                class="indicator absolute right-0 top-0 mr-1 mt-1">
+                <span class="badge indicator-item border-info bg-info"></span>
+                <div class="grid h-32 w-32"></div>
             </div>
         </div>
     </div>

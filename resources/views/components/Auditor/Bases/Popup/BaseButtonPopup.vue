@@ -1,17 +1,16 @@
-<script setup>
-defineProps({
+<script lang="ts" setup>
+defineProps<{
     isValidate: {
-        type: Boolean,
-        required: true,
-    },
-});
+        type: Boolean;
+        required: true;
+    };
+}>();
 </script>
 
 <template>
     <button
-        class="btn btn-md text-base rounded-full border-none w-36 h-9 min-h-0 font-bold text-base-100 bg-blue-auditor"
-        :disabled="!isValidate"
-    >
+        class="bg-blue-auditor btn-md btn h-9 min-h-0 w-36 rounded-full border-none text-base font-bold text-base-100"
+        :disabled="!isValidate">
         <slot />
     </button>
 </template>
