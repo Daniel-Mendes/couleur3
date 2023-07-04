@@ -9,6 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "based/momentum-lock": "^0.2.0",
+        "based/momentum-modal": "^0.2.0",
+        "based/momentum-trail": "^0.2.2",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.8",
         "jetstreamlabs/zora": "^4.0",
@@ -17,7 +20,9 @@
         "laravel/tinker": "^2.8",
         "league/flysystem-aws-s3-v3": "^3.15",
         "pusher/pusher-php-server": "^7.2",
+        "spatie/laravel-data": "^3.6",
         "spatie/laravel-settings": "^3.1",
+        "spatie/laravel-typescript-transformer": "^2.3",
         "symfony/http-client": "^6.2",
         "symfony/mailgun-mailer": "^6.3",
         "tightenco/ziggy": "^1.0"

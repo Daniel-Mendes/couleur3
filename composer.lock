@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24854bc98db42aa78d112f1c02e5c83b",
+    "content-hash": "e18503272f16d15350d974956a6e9167",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -154,6 +154,196 @@
                 "source": "https://github.com/aws/aws-sdk-php/tree/3.269.0"
             },
             "time": "2023-04-26T18:21:04+00:00"
+        },
+        {
+            "name": "based/momentum-lock",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lepikhinb/momentum-lock.git",
+                "reference": "b167f4c2bda8cd220a0bda127c645acd3d7f6136"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lepikhinb/momentum-lock/zipball/b167f4c2bda8cd220a0bda127c645acd3d7f6136",
+                "reference": "b167f4c2bda8cd220a0bda127c645acd3d7f6136",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^9.0|^10",
+                "illuminate/support": "^9.0|^10",
+                "php": "^8.1",
+                "spatie/laravel-data": "^2.1|^3.1",
+                "spatie/laravel-typescript-transformer": "^2.1"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.2",
+                "nunomaduro/larastan": "^1.0|^2.0",
+                "orchestra/testbench": "^6.9|^7.0|^8.0",
+                "pestphp/pest": "^1.22",
+                "pestphp/pest-plugin-laravel": "^1.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Momentum\\Lock\\LockServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Momentum\\Lock\\": "src/",
+                    "Momentum\\Lock\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Boris Lepikhin",
+                    "email": "boris@lepikhin.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/lepikhinb/momentum-lock/issues",
+                "source": "https://github.com/lepikhinb/momentum-lock/tree/v0.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lepikhinb",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-02-24T20:08:19+00:00"
+        },
+        {
+            "name": "based/momentum-modal",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lepikhinb/momentum-modal.git",
+                "reference": "1776ce6a86dd1cf9ddea1889ad6d63ebda7756ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lepikhinb/momentum-modal/zipball/1776ce6a86dd1cf9ddea1889ad6d63ebda7756ce",
+                "reference": "1776ce6a86dd1cf9ddea1889ad6d63ebda7756ce",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.24|^9.0|^10.0",
+                "inertiajs/inertia-laravel": "^0.6",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^0.1.3",
+                "nunomaduro/larastan": "^1.0|^2.0",
+                "orchestra/testbench": "^6.9|^7.0",
+                "pestphp/pest": "^1.2",
+                "pestphp/pest-plugin-laravel": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Momentum\\Modal\\ModalServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Momentum\\Modal\\": "src/",
+                    "Momentum\\Modal\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Boris Lepikhin",
+                    "email": "boris@lepikhin.com"
+                }
+            ],
+            "description": "Build dynamic modal dialogs for your Inertia-powered Laravel apps",
+            "support": {
+                "issues": "https://github.com/lepikhinb/momentum-modal/issues",
+                "source": "https://github.com/lepikhinb/momentum-modal/tree/v0.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lepikhinb",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-22T22:30:39+00:00"
+        },
+        {
+            "name": "based/momentum-trail",
+            "version": "v0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lepikhinb/momentum-trail.git",
+                "reference": "553a3f3361d2e39930ea02e99ba8059efd7b8363"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lepikhinb/momentum-trail/zipball/553a3f3361d2e39930ea02e99ba8059efd7b8363",
+                "reference": "553a3f3361d2e39930ea02e99ba8059efd7b8363",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.24|^9.0|^10.0",
+                "php": "^8.0",
+                "tightenco/ziggy": "^1.5"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/larastan": "^1.0|^2.0",
+                "orchestra/testbench": "^6.9|^7.0|^8.0",
+                "pestphp/pest": "^1.22",
+                "pestphp/pest-plugin-laravel": "^1.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Momentum\\Trail\\TrailServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Momentum\\Trail\\": "src/",
+                    "Momentum\\Trail\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Boris Lepikhin",
+                    "email": "boris@lepikhin.com"
+                }
+            ],
+            "description": "Fully typed frontend route helper for Laravel apps",
+            "support": {
+                "issues": "https://github.com/lepikhinb/momentum-trail/issues",
+                "source": "https://github.com/lepikhinb/momentum-trail/tree/v0.2.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lepikhinb",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-02-16T09:24:45+00:00"
         },
         {
             "name": "brick/math",
@@ -3792,6 +3982,149 @@
             "time": "2023-04-15T23:01:58+00:00"
         },
         {
+            "name": "spatie/laravel-data",
+            "version": "3.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-data.git",
+                "reference": "ec8135711ef1dcba8650eb28d02c2a771b11349d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-data/zipball/ec8135711ef1dcba8650eb28d02c2a771b11349d",
+                "reference": "ec8135711ef1dcba8650eb28d02c2a771b11349d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.30|^10.0",
+                "php": "^8.1",
+                "phpdocumentor/type-resolver": "^1.5",
+                "spatie/laravel-package-tools": "^1.9.0"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.14",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "inertiajs/inertia-laravel": "^0.6.3",
+                "nesbot/carbon": "^2.63",
+                "nette/php-generator": "^3.5",
+                "nunomaduro/larastan": "^2.0",
+                "orchestra/testbench": "^7.6|^8.0",
+                "pestphp/pest": "^1.22",
+                "pestphp/pest-plugin-laravel": "^1.3",
+                "phpbench/phpbench": "^1.2",
+                "phpstan/extension-installer": "^1.1",
+                "phpunit/phpunit": "^9.3",
+                "spatie/invade": "^1.0",
+                "spatie/laravel-typescript-transformer": "^2.1.6",
+                "spatie/pest-plugin-snapshots": "^1.1",
+                "spatie/phpunit-snapshot-assertions": "^4.2",
+                "spatie/test-time": "^1.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\LaravelData\\LaravelDataServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelData\\": "src",
+                    "Spatie\\LaravelData\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ruben Van Assche",
+                    "email": "ruben@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Create unified resources and data transfer objects",
+            "homepage": "https://github.com/spatie/laravel-data",
+            "keywords": [
+                "laravel",
+                "laravel-data",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-data/issues",
+                "source": "https://github.com/spatie/laravel-data/tree/3.6.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-02T12:17:38+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "efab1844b8826443135201c4443690f032c3d533"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/efab1844b8826443135201c4443690f032c3d533",
+                "reference": "efab1844b8826443135201c4443690f032c3d533",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.5.24",
+                "spatie/pest-plugin-test-time": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.15.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-04-27T08:09:01+00:00"
+        },
+        {
             "name": "spatie/laravel-settings",
             "version": "3.1.0",
             "source": {
@@ -3879,6 +4212,88 @@
             "time": "2023-05-11T14:50:33+00:00"
         },
         {
+            "name": "spatie/laravel-typescript-transformer",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-typescript-transformer.git",
+                "reference": "66e699150679a151877d8070b8d2c9b27a7ef82f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-typescript-transformer/zipball/66e699150679a151877d8070b8d2c9b27a7ef82f",
+                "reference": "66e699150679a151877d8070b8d2c9b27a7ef82f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^8.83|^9.30|^10.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.12",
+                "spatie/typescript-transformer": "^2.1.13"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "mockery/mockery": "^1.4",
+                "nesbot/carbon": "^2.63",
+                "orchestra/testbench": "^6.0|^7.0|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.0",
+                "spatie/data-transfer-object": "^2.0",
+                "spatie/enum": "^3.0",
+                "spatie/laravel-model-states": "^1.6|^2.0",
+                "spatie/pest-plugin-snapshots": "^1.1",
+                "spatie/phpunit-snapshot-assertions": "^4.2",
+                "spatie/temporary-directory": "^1.2",
+                "vimeo/psalm": "^4.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\LaravelTypeScriptTransformer\\TypeScriptTransformerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelTypeScriptTransformer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ruben Van Assche",
+                    "email": "ruben@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Transform your PHP structures to TypeScript types",
+            "homepage": "https://github.com/spatie/typescript-transformer",
+            "keywords": [
+                "spatie",
+                "typescript-transformer"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-typescript-transformer/issues",
+                "source": "https://github.com/spatie/laravel-typescript-transformer/tree/2.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-04-14T08:14:48+00:00"
+        },
+        {
             "name": "spatie/temporary-directory",
             "version": "2.1.2",
             "source": {
@@ -3938,6 +4353,78 @@
                 }
             ],
             "time": "2023-04-28T07:47:42+00:00"
+        },
+        {
+            "name": "spatie/typescript-transformer",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/typescript-transformer.git",
+                "reference": "84c5e564a825809445b5dd5ae5f45873851c51c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/typescript-transformer/zipball/84c5e564a825809445b5dd5ae5f45873851c51c2",
+                "reference": "84c5e564a825809445b5dd5ae5f45873851c51c2",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "^4.13",
+                "php": "^8.0",
+                "phpdocumentor/type-resolver": "^1.6.2",
+                "symfony/process": "^5.2|^6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "larapack/dd": "^1.1",
+                "myclabs/php-enum": "^1.7",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.0",
+                "spatie/data-transfer-object": "^2.0",
+                "spatie/enum": "^3.0",
+                "spatie/pest-plugin-snapshots": "^1.1",
+                "spatie/temporary-directory": "^1.2|^2.0",
+                "vimeo/psalm": "^4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\TypeScriptTransformer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ruben Van Assche",
+                    "email": "ruben@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Transform your PHP structures to TypeScript types",
+            "homepage": "https://github.com/spatie/typescript-transformer",
+            "keywords": [
+                "spatie",
+                "typescript-transformer"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/typescript-transformer/issues",
+                "source": "https://github.com/spatie/typescript-transformer/tree/2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-02T12:10:10+00:00"
         },
         {
             "name": "symfony/console",
