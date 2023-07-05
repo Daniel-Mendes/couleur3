@@ -1,6 +1,4 @@
-import { defineStore } from "pinia";
-import { ref, onMounted, watchEffect } from "vue";
-import { usePage } from "@inertiajs/vue3";
+import echo from "@/scripts/utils/echo";
 
 export const useChatStore = defineStore("chat", () => {
     const page = usePage();
@@ -22,7 +20,7 @@ export const useChatStore = defineStore("chat", () => {
     });
 
     const subscribeToPublicChannel = () => {
-        window.Echo.channel("public")
+        echo.channel("public")
             .listen("MessageSent", (event) => {
                 addMessage(event.message);
             })

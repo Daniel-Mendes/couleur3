@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import InteractionType from "@/scripts/enums/InteractionType.js";

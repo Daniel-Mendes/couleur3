@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\InteractionData;
+use App\Data\RewardData;
 use App\Enums\InteractionStatus;
 use App\Events\ChatUpdated;
 use App\Events\InteractionEndedEvent;
@@ -12,11 +14,10 @@ use Inertia\Inertia;
 
 class AnimatorController extends Controller
 {
-    public function index(GeneralSettings $settings)
+    public function index()
     {
         return Inertia::render('animator/index/page', [
-            'chatEnabled' => $settings->chat_enabled,
-            'interaction' => Interaction::pending()->with([
+            'interaction' => Interaction::pending()->first() ? InteractionData::from(Interaction::pending()->with([
                 'answers' => [
                     'auditor' => [
                         'user',
@@ -30,8 +31,8 @@ class AnimatorController extends Controller
                 ],
                 'callToAction',
                 'questionChoices',
-            ])->first(),
-            'rewards' => Reward::all(),
+            ])->first()) : null,
+            'rewards' => RewardData::collection(Reward::all()),
         ]);
     }
 
@@ -50,9 +51,6 @@ class AnimatorController extends Controller
 
         broadcast(new InteractionEndedEvent())->toOthers();
 
-        return redirect()->back()->with([
-            'chatEnabled' => $settings->chat_enabled,
-            'interaction' => null,
-        ]);
+        return redirect()->back();
     }
 }

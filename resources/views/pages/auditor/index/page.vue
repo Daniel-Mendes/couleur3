@@ -8,20 +8,20 @@ import Chat from "./partials/Chat.vue";
 
 defineProps<{
     chatEnabled: boolean;
-    user: Object | null;
+    auth: App.Data.UserData | null;
 }>();
 </script>
 
 <template>
-    <LayoutAuditor :user="user">
+    <LayoutAuditor :auth="auth">
         <Head title="Lecteur" />
         <Player />
         <DescriptionLive />
-        <Popups :user="user" />
+        <Popups :auth="auth" />
         <div
             id="fixed-container"
             class="fixed bottom-16 flex w-screen flex-col">
-            <Notifications :user="user" />
+            <Notifications :auth="auth" />
             <Chat
                 :chat-enabled="chatEnabled"
                 class="grow" />

@@ -1,14 +1,18 @@
-<script setup>
-defineProps({
-    id: {
-        type: String,
-        default: "",
-    },
-});
+<script lang="ts" setup>
+withDefaults(
+    defineProps<{
+        id: string;
+    }>(),
+    {
+        id: "",
+    }
+);
 </script>
 
 <template>
-    <label :for="`${id}`" class="block font-medium text-white text-lg">
+    <label
+        :for="`${id}`"
+        class="block text-lg font-medium text-white">
         <slot></slot>
     </label>
 </template>

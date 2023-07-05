@@ -3,10 +3,7 @@ import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 import { storeToRefs } from "pinia";
 
 defineProps<{
-    id: {
-        type: String;
-        required: true;
-    };
+    id: string;
 }>();
 const interactionStore = useInteractionStore();
 const { hasOpenedNotif } = storeToRefs(interactionStore);

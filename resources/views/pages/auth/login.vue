@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script lang="ts" setup>
 import Checkbox from "@/views/components/Auditor/Bases/Checkbox.vue";
 import LayoutAuditor from "@/views/layouts/auditor/layout-auditor.vue";
@@ -16,7 +15,7 @@ defineProps<{
         type: String;
         default: "";
     };
-    user: {
+    auth: {
         type: Object;
         required: true;
     };
@@ -36,7 +35,7 @@ const submit = () =>
 </script>
 
 <template>
-    <LayoutAuditor :user="user">
+    <LayoutAuditor :auth="auth">
         <Head title="Login" />
 
         <div

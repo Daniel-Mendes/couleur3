@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\AddressData;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -33,10 +35,10 @@ class ProfileController extends Controller
             }
         }
 
-        return Inertia::render('Profile/Edit', [
+        return Inertia::render('profile/edit', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
-            'address' => $address, // Ajouter l'adresse à la réponse
+            'address' => AddressData::from($address), // Ajouter l'adresse à la réponse
         ]);
     }
 
@@ -74,7 +76,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return redirect()->route('profile.edit');
     }
 
     /**
@@ -95,6 +97,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return redirect()->intended(RouteServiceProvider::AUDITOR_HOME);
     }
 }

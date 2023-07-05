@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script setup>
 import InputGroup from "@/Components/InputGroup.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -33,30 +32,33 @@ const submit = () => {
         <BaseCard :color="Color.ACCENT">
             <template #title>Rapidité</template>
             <template #subtitle>
-                Le but est de tester la rapidité des auditeurs. Sélectionnez
-                automatiquement les premiers participants qui ont cliqué sur un
-                bouton affiché à leur écran, afin de les récompenser.
+                Le but est de tester la rapidité des auditeurs. Sélectionnez automatiquement les premiers participants
+                qui ont cliqué sur un bouton affiché à leur écran, afin de les récompenser.
             </template>
             <template #content>
                 <div class="flex flex-col gap-8">
-                    <InputGroup id="title" label="Titre">
+                    <InputGroup
+                        id="title"
+                        label="Titre">
                         <TextInput
                             id="title"
                             v-model="form.title"
                             :color="Color.ACCENT"
-                            @change="form.validate('title')"
-                        />
+                            @change="form.validate('title')" />
 
-                        <InputError class="mt-2" :message="form.errors.title" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.title" />
                     </InputGroup>
 
-                    <InputGroup id="duration" label="Durée d'interaction">
+                    <InputGroup
+                        id="duration"
+                        label="Durée d'interaction">
                         <BaseDurationRange
                             id="duration"
                             v-model="form.duration"
                             :min="15"
-                            :color="Color.ACCENT"
-                        />
+                            :color="Color.ACCENT" />
                     </InputGroup>
                 </div>
             </template>

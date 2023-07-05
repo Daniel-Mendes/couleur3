@@ -1,21 +1,16 @@
 <script lang="ts" setup>
-defineProps<{
-    id: {
-        type: String;
-        required: false;
-        default: "";
-    };
-    label: {
-        type: String;
-        required: false;
-        default: "";
-    };
-    type: {
-        type: String;
-        required: false;
-        default: "text";
-    };
-}>();
+withDefaults(
+    defineProps<{
+        id?: string;
+        label?: string;
+        type?: string;
+    }>(),
+    {
+        id: "",
+        label: "",
+        type: "text",
+    }
+);
 
 const modelValue = defineModel();
 
@@ -42,5 +37,5 @@ defineExpose({ focus: () => input.value.focus() });
         v-model="modelValue"
         :placeholder="label"
         :type="type"
-        class="border-1 input-bordered input input-md w-full rounded-full border-base-100 border-opacity-50 bg-transparent font-light text-white placeholder-base-100 placeholder-opacity-50 invalid:border-error invalid:text-error focus:border-base-100 focus:ring-0 focus:invalid:border-error focus:invalid:text-error" />
+        class="border-1 input-bordered input input-md w-full rounded-full border-opacity-50 bg-transparent font-light text-white placeholder-base-100 placeholder-opacity-50 invalid:border-error invalid:text-error focus:border-base-100 focus:ring-0 focus:invalid:border-error focus:invalid:text-error" />
 </template>

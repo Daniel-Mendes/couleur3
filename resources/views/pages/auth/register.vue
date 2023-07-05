@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script setup>
 import AuditorLayout from "@/Layouts/AuditorLayout.vue";
 import InputError from "@/Components/InputError.vue";
@@ -50,14 +49,12 @@ const submit = () => {
 
         <div
             id="register"
-            class="flex flex-col justify-center items-center px-3.5 py-24"
-        >
-            <h2 class="font-semibold text-3xl mb-5">S'enregistrer</h2>
+            class="flex flex-col items-center justify-center px-3.5 py-24">
+            <h2 class="mb-5 text-3xl font-semibold">S'enregistrer</h2>
 
             <form
-                class="w-full flex flex-col items-center"
-                @submit.prevent="submit"
-            >
+                class="flex w-full flex-col items-center"
+                @submit.prevent="submit">
                 <div class="w-full">
                     <TextInput
                         id="name"
@@ -68,13 +65,14 @@ const submit = () => {
                         required
                         autofocus
                         autocomplete="name"
-                        @change="form.validate('name')"
-                    />
+                        @change="form.validate('name')" />
 
-                    <InputError class="mt-2" :message="form.errors.name" />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.name" />
                 </div>
 
-                <div class="w-full mt-4">
+                <div class="mt-4 w-full">
                     <TextInput
                         id="email"
                         v-model="form.email"
@@ -83,13 +81,14 @@ const submit = () => {
                         class="mt-1 block w-full"
                         required
                         autocomplete="username"
-                        @change="form.validate('email')"
-                    />
+                        @change="form.validate('email')" />
 
-                    <InputError class="mt-2" :message="form.errors.email" />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.email" />
                 </div>
 
-                <div class="w-full mt-4">
+                <div class="mt-4 w-full">
                     <TextInput
                         id="password"
                         v-model="form.password"
@@ -98,13 +97,14 @@ const submit = () => {
                         class="mt-1 block w-full"
                         required
                         autocomplete="new-password"
-                        @change="form.validate('password')"
-                    />
+                        @change="form.validate('password')" />
 
-                    <InputError class="mt-2" :message="form.errors.password" />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.password" />
                 </div>
 
-                <div class="w-full mt-4">
+                <div class="mt-4 w-full">
                     <TextInput
                         id="password_confirmation"
                         v-model="form.password_confirmation"
@@ -113,41 +113,35 @@ const submit = () => {
                         class="mt-1 block w-full"
                         required
                         autocomplete="new-password"
-                        @change="form.validate('password_confirmation')"
-                    />
+                        @change="form.validate('password_confirmation')" />
 
                     <InputError
                         class="mt-2"
-                        :message="form.errors.password_confirmation"
-                    />
+                        :message="form.errors.password_confirmation" />
                 </div>
 
                 <div class="collapse bg-black">
                     <input
                         id="checkboxAddress"
                         type="checkbox"
-                        class="w-full h-full"
-                    />
+                        class="h-full w-full" />
                     <div
-                        class="collapse-title text-lg font-light text-base-100 flex flex-col items-center justify-center px-0"
-                    >
+                        class="collapse-title flex flex-col items-center justify-center px-0 text-lg font-light text-base-100">
                         Ajoutez votre adresse pour recevoir des récompenses
                         <br />
                         <span
                             id="openAddress"
-                            class="material-symbols-rounded text-4xl font-light"
-                        >
+                            class="material-symbols-rounded text-4xl font-light">
                             add
                         </span>
                         <span
                             id="closeAddress"
-                            class="material-symbols-rounded text-4xl font-light"
-                        >
+                            class="material-symbols-rounded text-4xl font-light">
                             remove
                         </span>
                     </div>
                     <div class="collapse-content">
-                        <div class="w-full mt-4">
+                        <div class="mt-4 w-full">
                             <TextInput
                                 id="street"
                                 v-model="form.address.street"
@@ -155,11 +149,10 @@ const submit = () => {
                                 type="street"
                                 class="mt-1 block w-full"
                                 autocomplete="street"
-                                @change="form.validate('address.street')"
-                            />
+                                @change="form.validate('address.street')" />
                         </div>
 
-                        <div class="mt-4 w-full flex gap-x-2">
+                        <div class="mt-4 flex w-full gap-x-2">
                             <div class="w-24">
                                 <TextInputPostalCode
                                     id="zip_code"
@@ -167,8 +160,7 @@ const submit = () => {
                                     label="NPA"
                                     type="zip_code"
                                     autocomplete="zip_code"
-                                    @change="form.validate('address.zip_code')"
-                                />
+                                    @change="form.validate('address.zip_code')" />
                             </div>
 
                             <div class="grow">
@@ -178,12 +170,11 @@ const submit = () => {
                                     label="Ville"
                                     type="city"
                                     autocomplete="city"
-                                    @change="form.validate('address.city')"
-                                />
+                                    @change="form.validate('address.city')" />
                             </div>
                         </div>
 
-                        <div class="w-full mt-4">
+                        <div class="mt-4 w-full">
                             <TextInput
                                 id="country"
                                 v-model="form.address.country"
@@ -191,8 +182,7 @@ const submit = () => {
                                 type="country"
                                 class="mt-1 block w-full"
                                 autocomplete="country"
-                                @change="form.validate('address.country')"
-                            />
+                                @change="form.validate('address.country')" />
                         </div>
                     </div>
                 </div>
@@ -201,8 +191,7 @@ const submit = () => {
                     <ProfileButton
                         :class="{ 'opacity-25': form.processing }"
                         :outlined="false"
-                        :disabled="form.processing"
-                    >
+                        :disabled="form.processing">
                         S'enregistrer
                     </ProfileButton>
                 </div>

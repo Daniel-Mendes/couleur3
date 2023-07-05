@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script setup>
 import InputGroup from "@/Components/InputGroup.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -35,37 +34,44 @@ const submit = () => {
             <template #title>Lien</template>
             <template #content>
                 <div class="flex flex-col gap-8">
-                    <InputGroup id="title" label="Titre">
+                    <InputGroup
+                        id="title"
+                        label="Titre">
                         <TextInput
                             id="title"
                             v-model="form.title"
                             :color="Color.SECONDARY"
-                            @change="form.validate('title')"
-                        />
+                            @change="form.validate('title')" />
 
-                        <InputError class="mt-2" :message="form.errors.title" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.title" />
                     </InputGroup>
 
-                    <InputGroup id="link" label="Lien">
+                    <InputGroup
+                        id="link"
+                        label="Lien">
                         <TextInput
                             id="link"
                             v-model="form.link"
                             placeholder="https://"
                             :color="Color.SECONDARY"
-                            @change="form.validate('link')"
-                        />
+                            @change="form.validate('link')" />
 
-                        <InputError class="mt-2" :message="form.errors.link" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.link" />
                     </InputGroup>
 
-                    <InputGroup id="duration" label="Durée d'interaction">
+                    <InputGroup
+                        id="duration"
+                        label="Durée d'interaction">
                         <BaseDurationRange
                             id="duration"
                             v-model="form.duration"
                             class="items-center"
                             :min="15"
-                            :color="Color.SECONDARY"
-                        />
+                            :color="Color.SECONDARY" />
                     </InputGroup>
                 </div>
             </template>

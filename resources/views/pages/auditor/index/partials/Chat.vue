@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script lang="ts" setup>
 import formatDateToHoursMinutes from "@/scripts/utils/date";
 import { useChatStore } from "@/scripts/stores/useChatStore.js";

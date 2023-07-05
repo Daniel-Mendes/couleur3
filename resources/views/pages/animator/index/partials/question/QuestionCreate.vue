@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script setup>
 import TextInput from "@/Components/TextInput.vue";
 import InputGroup from "@/Components/InputGroup.vue";
@@ -52,17 +51,12 @@ watch(correctAnswer, (newValue) => {
 });
 
 const submit = () => {
-    form.post(
-        route(
-            `interactions.${isCreatingInteraction.value?.toLowerCase()}.store`
-        ),
-        {
-            onSuccess: () => {
-                form.reset();
-                interactionStore.createdInteraction();
-            },
-        }
-    );
+    form.post(route(`interactions.${isCreatingInteraction.value?.toLowerCase()}.store`), {
+        onSuccess: () => {
+            form.reset();
+            interactionStore.createdInteraction();
+        },
+    });
 };
 
 const cancelQuestionType = () => {
@@ -81,9 +75,8 @@ const cancelQuestionType = () => {
 <template>
     <!-- Dashboard card && Create form -->
     <form
-        class="overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-primary"
-        @submit.prevent="submit"
-    >
+        class="overflow-y-scroll scrollbar-thin scrollbar-thumb-primary scrollbar-thumb-rounded"
+        @submit.prevent="submit">
         <BaseCard :color="Color.PRIMARY">
             <template #title>Question</template>
             <template #content>
@@ -91,13 +84,11 @@ const cancelQuestionType = () => {
                     v-model="form.type"
                     :choices="QuestionType.getAll()"
                     name="questionTypes"
-                    @input="interactionStore.creatingInteraction(form.type)"
-                />
+                    @input="interactionStore.creatingInteraction(form.type)" />
 
                 <div
                     v-if="isCreatingInteraction"
-                    class="flex flex-col gap-6 mt-5"
-                >
+                    class="mt-5 flex flex-col gap-6">
                     <InputGroup
                         v-if="
                             form.type === InteractionType.MCQ ||
@@ -105,50 +96,47 @@ const cancelQuestionType = () => {
                             form.type === InteractionType.TEXT
                         "
                         id="question"
-                        label="Question"
-                    >
+                        label="Question">
                         <TextInput
                             id="question"
                             v-model="form.title"
-                            :color="Color.PRIMARY"
-                        />
-                        <InputError class="mt-2" :message="form.errors.title" />
+                            :color="Color.PRIMARY" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.title" />
                     </InputGroup>
 
-                    <InputGroup v-else id="title" label="Titre">
+                    <InputGroup
+                        v-else
+                        id="title"
+                        label="Titre">
                         <TextInput
                             id="title"
                             v-model="form.title"
-                            :color="Color.PRIMARY"
-                        />
-                        <InputError class="mt-2" :message="form.errors.title" />
+                            :color="Color.PRIMARY" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.title" />
                     </InputGroup>
 
                     <MultipleInputGroup
-                        v-if="
-                            form.type === InteractionType.MCQ ||
-                            form.type === InteractionType.SURVEY
-                        "
-                        :form-type="form.type"
-                    >
+                        v-if="form.type === InteractionType.MCQ || form.type === InteractionType.SURVEY"
+                        :form-type="form.type">
                         <template
                             v-if="form.type === InteractionType.SURVEY"
-                            #instructions
-                        >
-                            Entrez les réponses que les auditeurs pourraient
-                            répondre.
+                            #instructions>
+                            Entrez les réponses que les auditeurs pourraient répondre.
                             <InputError
                                 class="mt-2"
-                                :message="form.errors.question_choices"
-                            />
+                                :message="form.errors.question_choices" />
                         </template>
-                        <template v-else #instructions>
-                            Entrez les réponses que les auditeurs pourraient
-                            répondre. Cochez la réponse correcte.
+                        <template
+                            v-else
+                            #instructions>
+                            Entrez les réponses que les auditeurs pourraient répondre. Cochez la réponse correcte.
                             <InputError
                                 class="mt-2"
-                                :message="form.errors.question_choices"
-                            />
+                                :message="form.errors.question_choices" />
                         </template>
                         <template #input1>
                             <div class="flex flex-row items-center gap-3">
@@ -158,14 +146,12 @@ const cancelQuestionType = () => {
                                     :value="0"
                                     type="radio"
                                     name="mcq"
-                                    class="checkbox bg-transparent checkbox-primary checkbox-lg"
-                                    @change="correctAnswer = 0"
-                                />
+                                    class="checkbox-primary checkbox checkbox-lg bg-transparent"
+                                    @change="correctAnswer = 0" />
                                 <TextInput
                                     id="input-1"
                                     v-model="form.question_choices[0].value"
-                                    :color="Color.PRIMARY"
-                                />
+                                    :color="Color.PRIMARY" />
                             </div>
                         </template>
                         <template #input2>
@@ -176,14 +162,12 @@ const cancelQuestionType = () => {
                                     :value="1"
                                     type="radio"
                                     name="mcq"
-                                    class="checkbox bg-transparent checkbox-primary checkbox-lg"
-                                    @change="correctAnswer = 1"
-                                />
+                                    class="checkbox-primary checkbox checkbox-lg bg-transparent"
+                                    @change="correctAnswer = 1" />
                                 <TextInput
                                     id="input-2"
                                     v-model="form.question_choices[1].value"
-                                    :color="Color.PRIMARY"
-                                />
+                                    :color="Color.PRIMARY" />
                             </div>
                         </template>
                         <template #input3>
@@ -194,14 +178,12 @@ const cancelQuestionType = () => {
                                     :value="2"
                                     type="radio"
                                     name="mcq"
-                                    class="checkbox bg-transparent checkbox-primary checkbox-lg"
-                                    @change="correctAnswer = 2"
-                                />
+                                    class="checkbox-primary checkbox checkbox-lg bg-transparent"
+                                    @change="correctAnswer = 2" />
                                 <TextInput
                                     id="input-3"
                                     v-model="form.question_choices[2].value"
-                                    :color="Color.PRIMARY"
-                                />
+                                    :color="Color.PRIMARY" />
                             </div>
                         </template>
                         <template #input4>
@@ -212,29 +194,30 @@ const cancelQuestionType = () => {
                                     :value="3"
                                     type="radio"
                                     name="mcq"
-                                    class="checkbox bg-transparent checkbox-primary checkbox-lg"
-                                    @change="correctAnswer = 3"
-                                />
+                                    class="checkbox-primary checkbox checkbox-lg bg-transparent"
+                                    @change="correctAnswer = 3" />
                                 <TextInput
                                     id="input-4"
                                     v-model="form.question_choices[3].value"
-                                    :color="Color.PRIMARY"
-                                />
+                                    :color="Color.PRIMARY" />
                             </div>
                         </template>
                     </MultipleInputGroup>
 
-                    <InputGroup id="duration" label="Durée d'interaction">
+                    <InputGroup
+                        id="duration"
+                        label="Durée d'interaction">
                         <BaseDurationRange
                             id="duration"
                             v-model="form.duration"
                             :min="15"
-                            :color="Color.PRIMARY"
-                        />
+                            :color="Color.PRIMARY" />
                     </InputGroup>
                 </div>
             </template>
-            <template v-if="isCreatingInteraction" #actions>
+            <template
+                v-if="isCreatingInteraction"
+                #actions>
                 <div class="flex flex-row gap-3">
                     <BaseButton
                         :disabled="form.processing"

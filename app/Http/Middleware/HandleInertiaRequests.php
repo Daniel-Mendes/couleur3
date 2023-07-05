@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Data\InteractionData;
 use App\Data\SharedData;
 use App\Data\UserData;
+use App\Models\Interaction;
+use App\Settings\GeneralSettings;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -32,7 +35,20 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $state = new SharedData(
-            user: $request->user() ? UserData::from($request->user()) : null,
+            auth: $request->user() ? UserData::from($request->user()) : null,
+            chatEnabled: app(GeneralSettings::class)->chat_enabled,
+            interaction: Interaction::active()->first() ? InteractionData::from(Interaction::active()->first()->with([
+                'answers' => [
+                    'auditor' => [
+                        'user',
+                        'address',
+                        'winners',
+                    ],
+                    'replyable',
+                ],
+                'callToAction',
+                'questionChoices',
+            ])->first()) : null,
         );
 
         return array_merge(

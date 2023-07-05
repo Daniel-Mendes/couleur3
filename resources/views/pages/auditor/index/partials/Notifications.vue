@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script lang="ts" setup>
 import InteractionType from "@/scripts/enums/InteractionType.js";
 import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
@@ -7,17 +6,14 @@ import BaseNotif from "@/views/components/Auditor/Bases/BaseNotif.vue";
 
 // permet de récupérer la personne authentifiée si elle existe
 const props = defineProps<{
-    authInf: {
-        type: Object;
-        default: null;
-    };
+    auth: Object | null;
 }>();
 const interactionStore = useInteractionStore();
 const { currentInteraction, hasOpenedNotif, hasAnswerd } = storeToRefs(interactionStore);
 
 function clicNotif() {
-    if (currentInteraction.value.type === InteractionType.QUICK_CLICK && props.authInf === null) {
-        document.querySelector("#popup-auditor").showModal();
+    if (currentInteraction.value.type === InteractionType.QUICK_CLICK && props.auth === null) {
+        (document.querySelector("#popup-auditor") as HTMLDialogElement).showModal();
     } else if (
         currentInteraction.value.type === InteractionType.QUICK_CLICK ||
         currentInteraction.value.type === InteractionType.TEXT ||
@@ -30,7 +26,7 @@ function clicNotif() {
         // l'auditeur à ouvert la notification
         hasOpenedNotif.value = true;
         // Ouvre la modal
-        document.querySelector("#popup-auditor").showModal();
+        (document.querySelector("#popup-auditor") as HTMLDialogElement).showModal();
     } else if (currentInteraction.value.type === InteractionType.CTA) {
         // l'auditeur à ouvert la notification
         hasOpenedNotif.value = true;

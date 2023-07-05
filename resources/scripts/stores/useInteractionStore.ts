@@ -1,7 +1,3 @@
-/* eslint-disable no-undef */
-import { defineStore } from "pinia";
-import { computed, reactive, toRefs, onMounted, watch, watchEffect } from "vue";
-import { usePage, router } from "@inertiajs/vue3";
 import echo from "@/scripts/utils/echo";
 
 export const useInteractionStore = defineStore(
@@ -14,7 +10,7 @@ export const useInteractionStore = defineStore(
             hasOpenedNotif: false,
             hasBeenRewarded: null,
             hasAnswerd: false,
-            currentInteraction: page.props.interaction,
+            currentInteraction: page.props.interaction as App.Data.InteractionData,
             winnersCount: 1,
             chosedWinners: [],
             rewards: page.props.rewards,
@@ -41,7 +37,7 @@ export const useInteractionStore = defineStore(
         );
 
         watch(
-            () => page.props.user,
+            () => page.props.auth as App.Data.UserData,
             (newValue, oldValue) => {
                 if (oldValue) {
                     echo.leaveChannel(`auditors.${oldValue.id}`);
@@ -60,18 +56,18 @@ export const useInteractionStore = defineStore(
         );
 
         watchEffect(() => {
-            state.currentInteraction = page.props.interaction;
+            state.currentInteraction = page.props.interaction as App.Data.InteractionData;
             state.errors = page.props.errors;
         });
 
         onMounted(() => {
             subscribeToPublicChannel();
 
-            if (!page.props.user) return;
+            if (!page.props.auth) return;
 
-            if (page.props.user.roleable_type === "App\\Models\\Animator" && state.currentInteraction) {
+            if (page.props.auth.roleable_type === "App\\Models\\Animator" && state.currentInteraction) {
                 subscribeAnimatorToPrivateChannel();
-            } else if (page.props.user.roleable_type === "App\\Models\\Auditor" && state.currentInteraction) {
+            } else if (page.props.auth.roleable_type === "App\\Models\\Auditor" && state.currentInteraction) {
                 subscribeAuditorToPrivateChannel();
             }
         });
@@ -105,7 +101,7 @@ export const useInteractionStore = defineStore(
         };
 
         const subscribeAuditorToPrivateChannel = () => {
-            echo.private(`auditors.${page.props.auth.user.id}`).listen("WinnerSentResult", (event) => {
+            echo.private(`auditors.${page.props.auth.id}`).listen("WinnerSentResult", (event) => {
                 state.hasBeenRewarded = event.reward;
             });
         };
@@ -114,7 +110,7 @@ export const useInteractionStore = defineStore(
             state.isCreatingInteraction = null;
         };
 
-        const creatingInteraction = (type) => {
+        const creatingInteraction = (type: App.Enums.InteractionType) => {
             state.isCreatingInteraction = type;
         };
 
@@ -132,19 +128,19 @@ export const useInteractionStore = defineStore(
             });
         };
 
-        const addPinned = (answer) => {
+        const addPinned = (answer: App.Data.AnswerData) => {
             state.pinnedAnswers.push(answer);
         };
 
-        const removePinned = (answer) => {
+        const removePinned = (answer: App.Data.AnswerData) => {
             state.pinnedAnswers.splice(state.pinnedAnswers.indexOf(answer), 1);
         };
 
-        const removeWinner = (choseWinner) => {
+        const removeWinner = (choseWinner: App.Data.UserData) => {
             state.currentInteraction.winners.splice(state.currentInteraction.indexOf(choseWinner), 1);
         };
 
-        const updatePinnedAsChosedWinners = (chosedWinners) => {
+        const updatePinnedAsChosedWinners = (chosedWinners: App.Data.UserData[]) => {
             chosedWinners.forEach((choseWinner) => {
                 if (!state.chosedWinners.includes(choseWinner)) {
                     state.chosedWinners.push(choseWinner);
@@ -154,7 +150,7 @@ export const useInteractionStore = defineStore(
             });
         };
 
-        const updateChosedWinner = (choseWinner) => {
+        const updateChosedWinner = (choseWinner: App.Data.UserData) => {
             if (!state.chosedWinners.includes(choseWinner)) {
                 state.chosedWinners.push(choseWinner);
             } else {

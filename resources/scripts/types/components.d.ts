@@ -36,6 +36,7 @@ declare module 'vue' {
     InputError: typeof import('./../../views/components/InputError.vue')['default']
     InputGroup: typeof import('./../../views/components/InputGroup.vue')['default']
     InputLabel: typeof import('./../../views/components/InputLabel.vue')['default']
+    Link: typeof import('@inertiajs/vue3')['Link']
     MessageItem: typeof import('./../../views/components/MessageItem.vue')['default']
     MiniaturePlayer: typeof import('./../../views/components/Auditor/MiniaturePlayer.vue')['default']
     Modal: typeof import('./../../views/components/Modal.vue')['default']

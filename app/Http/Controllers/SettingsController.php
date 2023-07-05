@@ -14,15 +14,11 @@ class SettingsController extends Controller
         $validated = $request->validated();
 
         if ($validated['chat_enabled'] === true && $settings->chat_enabled) {
-            return back()->flash(NotificationType::ERROR, 'Le chat est déjà activé.')->with([
-                'chatEnabled' => $settings->chat_enabled,
-            ]);
+            return back()->flash(NotificationType::ERROR, 'Le chat est déjà activé.');
         }
 
         if ($validated['chat_enabled'] === false && !$settings->chat_enabled) {
-            return back()->flash(NotificationType::ERROR, 'Le chat est déjà désactivé.')->with([
-                'chatEnabled' => $settings->chat_enabled,
-            ]);
+            return back()->flash(NotificationType::ERROR, 'Le chat est déjà désactivé.');
         }
 
         $settings->chat_enabled = $validated['chat_enabled'];
@@ -31,13 +27,10 @@ class SettingsController extends Controller
         broadcast(new ChatUpdated($settings->chat_enabled))->toOthers();
 
         if ($settings->chat_enabled) {
-            return back()->flash(NotificationType::SUCCESS, 'Le chat a bien été activé.')->with([
-                'chatEnabled' => $settings->chat_enabled,
-            ]);
+            return back()->flash(NotificationType::SUCCESS, 'Le chat a bien été activé.');
         }
 
         return back()->flash(NotificationType::SUCCESS, 'Le chat a bien été désactivé.')->with([
-            'chatEnabled' => $settings->chat_enabled,
             'messages' => [],
         ]);
     }

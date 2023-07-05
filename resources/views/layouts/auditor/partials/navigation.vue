@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 const props = defineProps<{
-    user: {
-        type: Object;
-        default: null;
-    };
+    auth: App.Data.UserData | null;
 }>();
 
 // Créer une référence aux boutons de navigation
@@ -16,10 +13,10 @@ const buttons = ref([
 
 // Fonction appelée lorsqu'on clique sur un bouton
 function handleButtonClick(index) {
-    if (buttons.value[index].name === "person" && props.user === null) {
+    if (buttons.value[index].name === "person" && props.auth === null) {
         // Rediriger vers la page de login si l'utilisateur est pas connecté
         window.location.href = "/login";
-    } else if (buttons.value[index].name === "person" && props.user !== null) {
+    } else if (buttons.value[index].name === "person" && props.auth !== null) {
         // Rediriger vers la page de profil si l'utilisateur est connecté
         window.location.href = "/profile";
     } else if (buttons.value[index].name === "smart_display") {
@@ -47,14 +44,14 @@ function handleButtonClick(index) {
                 {{ button.name }}
             </span>
             <span
-                v-if="button.name === 'person' && user === null"
+                v-if="button.name === 'person' && auth === null"
                 class="material-symbols-rounded text-3xl">
                 {{ button.name }}
             </span>
             <span
-                v-if="button.name === 'person' && user !== null"
+                v-if="button.name === 'person' && auth !== null"
                 class="flex h-9 w-9 items-center justify-center rounded-full bg-base-100 font-bold text-black">
-                <span>{{ user.name[0] }}</span>
+                <span>{{ auth.name[0] }}</span>
             </span>
         </button>
     </div>

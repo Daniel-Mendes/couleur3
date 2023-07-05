@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script setup>
 import MessageItem from "@/Components/MessageItem.vue";
 import BaseCard from "@/Components/Animator/Bases/BaseCard.vue";
@@ -36,9 +35,10 @@ const submit = () => {
         <template #title>Chat</template>
         <template #content>
             <ul
-                class="overflow-y-scroll h-[55vh] scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-white flex-col gap-2"
-            >
-                <li v-for="msg in messages" :key="msg.id">
+                class="h-[55vh] flex-col gap-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-white scrollbar-thumb-rounded">
+                <li
+                    v-for="msg in messages"
+                    :key="msg.id">
                     <MessageItem :msg="msg" />
                 </li>
             </ul>
@@ -46,9 +46,7 @@ const submit = () => {
         <template #actions>
             <form @submit.prevent="submit">
                 <BaseButton :disabled="form.processing">
-                    {{
-                        isChatEnabled ? "Désactiver le chat" : "Activer le chat"
-                    }}
+                    {{ isChatEnabled ? "Désactiver le chat" : "Activer le chat" }}
                 </BaseButton>
             </form>
         </template>

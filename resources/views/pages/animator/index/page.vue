@@ -1,21 +1,17 @@
-<!-- eslint-disable no-undef -->
 <script lang="ts" setup>
-import BaseButton from "@/Components/Animator/Bases/BaseButton.vue";
-import ChatView from "@/Components/Animator/Chat/ChatView.vue";
-import QuickClickIndex from "@/Components/Animator/QuickClick/QuickClickIndex.vue";
-import QuickClickCreate from "@/Components/Animator/QuickClick/QuickClickCreate.vue";
-import QuickClickShow from "@/Components/Animator/QuickClick/QuickClickShow.vue";
-import CtaIndex from "@/Components/Animator/Cta/CtaIndex.vue";
-import CtaCreate from "@/Components/Animator/Cta/CtaCreate.vue";
-import CtaShow from "@/Components/Animator/Cta/CtaShow.vue";
-import QuestionCreate from "@/Components/Animator/Question/QuestionCreate.vue";
-import QuestionShow from "@/Components/Animator/Question/QuestionShow.vue";
-import InteractionType from "@/Enums/InteractionType.js";
-import EndingMessage from "@/Components/Animator/Answers/EndingMessage.vue";
-import { route } from "momentum-trail";
-import { Head, router } from "@inertiajs/vue3";
-import { useInteractionStore } from "@/stores/useInteractionStore.js";
-import { storeToRefs } from "pinia";
+import BaseButton from "@/views/components/Animator/Bases/BaseButton.vue";
+import ChatView from "@/views/components/Animator/Chat/ChatView.vue";
+import QuickClickIndex from "@/views/components/Animator/QuickClick/QuickClickIndex.vue";
+import QuickClickCreate from "@/views/components/Animator/QuickClick/QuickClickCreate.vue";
+import QuickClickShow from "@/views/components/Animator/QuickClick/QuickClickShow.vue";
+import CtaIndex from "@/views/components/Animator/Cta/CtaIndex.vue";
+import CtaCreate from "@/views/components/Animator/Cta/CtaCreate.vue";
+import CtaShow from "@/views/components/Animator/Cta/CtaShow.vue";
+import QuestionCreate from "@/views/components/Animator/Question/QuestionCreate.vue";
+import QuestionShow from "@/views/components/Animator/Question/QuestionShow.vue";
+import InteractionType from "@/enums/InteractionType.js";
+import EndingMessage from "@/views/components/Animator/Answers/EndingMessage.vue";
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 
 const interactionStore = useInteractionStore();
 const { isCreatingInteraction, currentInteraction } = storeToRefs(interactionStore);
@@ -23,6 +19,8 @@ const { isCreatingInteraction, currentInteraction } = storeToRefs(interactionSto
 const endEmission = () => {
     router.post(route("animator.endEmission"));
 };
+
+console.log(isCreatingInteraction);
 </script>
 
 <template>

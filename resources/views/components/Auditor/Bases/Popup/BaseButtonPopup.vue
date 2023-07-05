@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 defineProps<{
-    isValidate: {
-        type: Boolean;
-        required: true;
-    };
+    isValidate: Boolean;
 }>();
 </script>
 

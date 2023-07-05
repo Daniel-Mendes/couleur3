@@ -1,30 +1,26 @@
-<script setup>
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/Auditor/Bases/PrimaryButton.vue";
-import TextInput from "@/Components/Auditor/Bases/TextInput.vue";
-import TextInputPostalCode from "@/Components/Auditor/Bases/TextInputPostalCode.vue";
-import TextInputCity from "@/Components/Auditor/Bases/TextInputCity.vue";
-import { Link, useForm, usePage } from "@inertiajs/vue3";
+<script lang="ts" setup>
+import InputError from "@/views/components/InputError.vue";
+import InputLabel from "@/views/components/InputLabel.vue";
+import ButtonPrimary from "@/views/components/Auditor/Bases/Button/ButtonPrimary.vue";
+import TextInput from "@/views/components/Auditor/Bases/TextInput/TextInput.vue";
+import TextInputPostalCode from "@/views/components/Auditor/Bases/TextInput/TextInputPostalCode.vue";
+import TextInputCity from "@/views/components/Auditor/Bases/TextInput/TextInputCity.vue";
 
-const props = defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-        default: "",
-    },
-    address: {
-        type: Object,
-        required: true,
-    },
-});
-const user = usePage().props.auth.user;
+const props = withDefaults(
+    defineProps<{
+        mustVerifyEmail: boolean;
+        status: string;
+        auth: App.Data.UserData | null;
+        address: App.Data.AddressData | null;
+    }>(),
+    {
+        status: "",
+    }
+);
 
 const form = useForm({
-    name: user.name,
-    email: user.email,
+    name: props.auth.name,
+    email: props.auth.email,
     address: props.address,
 });
 </script>
@@ -32,22 +28,20 @@ const form = useForm({
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-base-100">
-                Informations sur le profil
-            </h2>
+            <h2 class="text-lg font-medium text-base-100">Informations sur le profil</h2>
 
-            <p class="mt-1 text-base text-base-100 font-light">
-                Mettez à jour les informations de profil et l'adresse e-mail de
-                votre compte.
+            <p class="mt-1 text-base font-light text-base-100">
+                Mettez à jour les informations de profil et l'adresse e-mail de votre compte.
             </p>
         </header>
 
         <form
             class="mt-6 space-y-6"
-            @submit.prevent="form.patch(route('profile.update'))"
-        >
+            @submit.prevent="form.patch(route('profile.update'))">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel
+                    for="name"
+                    value="Name" />
 
                 <TextInput
                     id="name"
@@ -57,14 +51,17 @@ const form = useForm({
                     class="mt-1 block w-full"
                     required
                     autofocus
-                    autocomplete="name"
-                />
+                    autocomplete="name" />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError
+                    class="mt-2"
+                    :message="form.errors.name" />
             </div>
 
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel
+                    for="email"
+                    value="Email" />
 
                 <TextInput
                     id="email"
@@ -73,14 +70,17 @@ const form = useForm({
                     type="email"
                     class="mt-1 block w-full"
                     required
-                    autocomplete="username"
-                />
+                    autocomplete="username" />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError
+                    class="mt-2"
+                    :message="form.errors.email" />
             </div>
 
             <div>
-                <InputLabel for="street" :value="address.street" />
+                <InputLabel
+                    for="street"
+                    :value="address.street" />
 
                 <TextInput
                     id="address"
@@ -88,19 +88,17 @@ const form = useForm({
                     label="Adresse"
                     type="text"
                     class="mt-1 block w-full"
-                    autocomplete="address"
-                />
+                    autocomplete="address" />
             </div>
 
-            <div class="mt-4 w-full flex gap-x-2">
+            <div class="mt-4 flex w-full gap-x-2">
                 <div class="w-24">
                     <TextInputPostalCode
                         id="zip_code"
                         v-model="form.address.zip_code"
                         label="NPA"
                         type="zip_code"
-                        autocomplete="zip_code"
-                    />
+                        autocomplete="zip_code" />
                 </div>
 
                 <div class="grow">
@@ -109,13 +107,14 @@ const form = useForm({
                         v-model="form.address.city"
                         label="Ville"
                         type="city"
-                        autocomplete="city"
-                    />
+                        autocomplete="city" />
                 </div>
             </div>
 
             <div>
-                <InputLabel for="street" :value="address.country" />
+                <InputLabel
+                    for="street"
+                    :value="address.country" />
 
                 <TextInput
                     id="country"
@@ -123,48 +122,42 @@ const form = useForm({
                     label="Pays"
                     type="text"
                     class="mt-1 block w-full"
-                    autocomplete="country"
-                />
+                    autocomplete="country" />
             </div>
 
-            <InputError class="mt-2" :message="form.errors.address" />
+            <InputError
+                class="mt-2"
+                :message="form.errors.address" />
 
-            <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
+            <div v-if="mustVerifyEmail && auth.email_verified_at === null">
+                <p class="mt-2 text-sm text-gray-800 dark:text-gray-200">
                     Votre adresse e-mail n'est pas vérifiée.
                     <Link
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                    >
+                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800">
                         Cliquez ici pour renvoyer l'e-mail de vérification.
                     </Link>
                 </p>
 
                 <div
                     v-show="status === 'verification-link-sent'"
-                    class="mt-2 font-medium text-sm text-green-600 dark:text-green-400"
-                >
-                    Un nouveau lien de vérification a été envoyé à votre adresse
-                    e-mail.
+                    class="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
+                    Un nouveau lien de vérification a été envoyé à votre adresse e-mail.
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing"
-                    >Sauvegarder</PrimaryButton
-                >
+                <ButtonPrimary :disabled="form.processing">Sauvegarder</ButtonPrimary>
 
                 <Transition
                     enter-from-class="opacity-0"
                     leave-to-class="opacity-0"
-                    class="transition ease-in-out"
-                >
+                    class="transition ease-in-out">
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-base-100"
-                    >
+                        class="text-sm text-base-100">
                         Sauvegarder
                     </p>
                 </Transition>

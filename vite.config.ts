@@ -69,11 +69,16 @@ export default defineConfig({
             pattern: "routes/*.php",
             command: "php artisan trail:generate",
         }),
+        watch({
+            pattern: "lang/**/*.php",
+            command: "php artisan zora:generate",
+        }),
         autoimport({
             vueTemplate: true,
             dts: "resources/scripts/types/auto-imports.d.ts",
             imports: [
                 "vue",
+                { pinia: ["defineStore", "storeToRefs"] },
                 { "momentum-lock": ["can"] },
                 { "momentum-trail": ["route", "current"] },
                 { "@inertiajs/vue3": ["router", "useForm", "usePage"] },

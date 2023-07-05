@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script setup>
 import AuditorLayout from "@/Layouts/AuditorLayout.vue";
 import InputError from "@/Components/InputError.vue";
@@ -26,24 +25,24 @@ const submit = () => {
 <template>
     <AuditorLayout>
         <Head title="Forgot Password" />
-        <div class="h-screen flex flex-col items-center justify-center px-4">
-            <div class="mb-4 text-base text-base-100 font-light">
-                Mot de passe oublié? Aucun problème. Indiquez-nous simplement
-                votre adresse e-mail et nous vous enverrons par e-mail un lien
-                de réinitialisation de mot de passe qui vous permettra d'en
-                choisir un nouveau.
+        <div class="flex h-screen flex-col items-center justify-center px-4">
+            <div class="mb-4 text-base font-light text-base-100">
+                Mot de passe oublié? Aucun problème. Indiquez-nous simplement votre adresse e-mail et nous vous
+                enverrons par e-mail un lien de réinitialisation de mot de passe qui vous permettra d'en choisir un
+                nouveau.
             </div>
 
             <div
                 v-if="status"
-                class="mb-4 font-medium text-sm text-green-600 dark:text-green-400"
-            >
+                class="mb-4 text-sm font-medium text-green-600 dark:text-green-400">
                 {{ status }}
             </div>
 
             <form @submit.prevent="submit">
                 <div>
-                    <InputLabel for="email" value="Email" />
+                    <InputLabel
+                        for="email"
+                        value="Email" />
 
                     <TextInput
                         id="email"
@@ -53,17 +52,17 @@ const submit = () => {
                         class="mt-1 block w-full"
                         required
                         autofocus
-                        autocomplete="username"
-                    />
+                        autocomplete="username" />
 
-                    <InputError class="mt-2" :message="form.errors.email" />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.email" />
                 </div>
 
-                <div class="flex items-center justify-end mt-4">
+                <div class="mt-4 flex items-center justify-end">
                     <PrimaryButton
                         :class="{ 'opacity-25': form.processing }"
-                        :disabled="form.processing"
-                    >
+                        :disabled="form.processing">
                         Lien de réinitialisation du mot de passe
                     </PrimaryButton>
                 </div>

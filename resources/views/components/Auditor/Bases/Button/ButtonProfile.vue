@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 defineProps<{
-    outlined: {
-        type: Boolean;
-        required: true;
-    };
+    outlined: boolean;
 }>();
 </script>
 <template>

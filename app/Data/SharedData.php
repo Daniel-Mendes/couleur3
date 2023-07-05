@@ -8,7 +8,9 @@ use Spatie\LaravelData\Data;
 class SharedData extends Data
 {
     public function __construct(
-        public ?UserData $user = null,
+        public ?UserData $auth = null,
+        public bool $chatEnabled = false,
+        public ?InteractionData $interaction = null,
         public ?NotificationData $notification = null,
     ) {
         $this->shareNotification();

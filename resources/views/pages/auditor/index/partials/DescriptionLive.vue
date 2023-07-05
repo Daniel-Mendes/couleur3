@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import Recommandation from "./partials/Recommandation.vue";
 
-defineProps<{
-    type: {
-        type: String;
-        default: "white";
-        required: false;
-    };
-}>();
+withDefaults(
+    defineProps<{
+        type?: string;
+    }>(),
+    {
+        type: "white",
+    }
+);
 
 onMounted(() => {
     const shareButton = document.getElementById("share");

@@ -18,6 +18,7 @@ return [
 
     'collectors' => [
         Momentum\Lock\TypeScript\DataResourceCollector::class,
+        Spatie\LaravelData\Support\TypeScriptTransformer\DataTypeScriptCollector::class,
         Spatie\TypeScriptTransformer\Collectors\DefaultCollector::class,
         Spatie\TypeScriptTransformer\Collectors\EnumCollector::class,
     ],

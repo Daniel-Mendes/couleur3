@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <script setup>
 import { ref, reactive, onMounted } from "vue";
 import { router } from "@inertiajs/vue3";
@@ -75,18 +74,18 @@ const submitMessage = () => {
 
 <template>
     <div>
-        <div id="myTabContent" class="tab-content mb-3">
+        <div
+            id="myTabContent"
+            class="tab-content mb-3">
             <div class="tab-pane fade show active">
                 <div
                     v-if="data.messages && data.chatEnabled"
                     ref="messageContainer"
-                    class="messageContainer"
-                >
+                    class="messageContainer">
                     <MessageItem
                         v-for="msg in data.messages"
                         :key="msg.id"
-                        :msg="msg"
-                    />
+                        :msg="msg" />
                 </div>
 
                 <form @submit.prevent="submitMessage">
@@ -100,16 +99,14 @@ const submitMessage = () => {
                             autofocus
                             placeholder="Message..."
                             :disabled="form.processing || !data.chatEnabled"
-                            @keyup.enter="submitMessage"
-                        />
+                            @keyup.enter="submitMessage" />
 
                         <InputError
                             class="mt-2"
-                            :message="form.errors.message"
-                        />
+                            :message="form.errors.message" />
                     </div>
 
-                    <div class="row mt-3 mb-2">
+                    <div class="row mb-2 mt-3">
                         <div class="col-6 text-start">
                             <PrimaryButton
                                 :class="{
@@ -120,28 +117,18 @@ const submitMessage = () => {
                                         !data.chatEnabled,
                                 }"
                                 :disabled="
-                                    form.processing ||
-                                    !form.message ||
-                                    form.message.length < 1 ||
-                                    !data.chatEnabled
-                                "
-                            >
+                                    form.processing || !form.message || form.message.length < 1 || !data.chatEnabled
+                                ">
                                 Send message
                             </PrimaryButton>
 
                             <BaseButton>Bouton de basse</BaseButton>
 
-                            <BaseButton color="primary">
-                                Je test le bleu
-                            </BaseButton>
+                            <BaseButton color="primary"> Je test le bleu </BaseButton>
 
-                            <BaseButton color="accent">
-                                Je test le rose
-                            </BaseButton>
+                            <BaseButton color="accent"> Je test le rose </BaseButton>
 
-                            <BaseButton color="secondary">
-                                Je test le jaune
-                            </BaseButton>
+                            <BaseButton color="secondary"> Je test le jaune </BaseButton>
                         </div>
                     </div>
                 </form>

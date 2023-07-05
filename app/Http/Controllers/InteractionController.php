@@ -40,9 +40,7 @@ class InteractionController extends Controller
 
         broadcast(new InteractionCreated($interaction))->toOthers();
 
-        return redirect()->back()->with([
-            'interaction' => $interaction,
-        ]);
+        return redirect()->back();
     }
 
     public function storeQuickClick(StoreQuickClickRequest $request)
@@ -64,9 +62,7 @@ class InteractionController extends Controller
 
         broadcast(new InteractionCreated($interaction))->toOthers();
 
-        return redirect()->back()->with([
-            'interaction' => $interaction,
-        ]);
+        return redirect()->back();
     }
 
     public function storeMCQ(StoreMCQRequest $request)
@@ -96,9 +92,7 @@ class InteractionController extends Controller
 
         broadcast(new InteractionCreated($interaction))->toOthers();
 
-        return redirect()->back()->with([
-            'interaction' => $interaction,
-        ]);
+        return redirect()->back();
     }
 
     public function storeText(StoreTextRequest $request)
@@ -120,9 +114,7 @@ class InteractionController extends Controller
 
         broadcast(new InteractionCreated($interaction))->toOthers();
 
-        return back()->with([
-            'interaction' => $interaction,
-        ]);
+        return redirect()->back();
     }
 
     public function storeSurvey(StoreSurveyRequest $request)
@@ -152,9 +144,7 @@ class InteractionController extends Controller
 
         broadcast(new InteractionCreated($interaction))->toOthers();
 
-        return redirect()->back()->with([
-            'interaction' => $interaction,
-        ]);
+        return redirect()->back();
     }
 
     public function endInteraction(Interaction $interaction)
@@ -166,8 +156,6 @@ class InteractionController extends Controller
 
         broadcast(new InteractionEndedEvent())->toOthers();
 
-        return redirect()->back()->with([
-            'interaction' => null,
-        ]);
+        return redirect()->back();
     }
 }
