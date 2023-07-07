@@ -34,7 +34,7 @@ export default defineConfig({
             },
         }),
         eslintPlugin(),
-        VueI18nPlugin(),
+        VueI18nPlugin({}),
         VitePWA({
             outDir: "public/build",
             scope: "/",
