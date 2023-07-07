@@ -20,12 +20,12 @@ class InteractionData extends Data
         public DataCollection $question_choices,
         #[DataCollectionOf(AnswerData::class)]
         public DataCollection $answers,
-        public UserData $animator,
+        public ?UserData $animator,
         public ?RewardData $reward,
         public DateTime $ended_at,
         public ?int $winners_count,
         #[DataCollectionOf(UserData::class)]
-        public DataCollection $winners,
+        public ?DataCollection $winners,
         public InteractionStatus $status,
     ) {
     }

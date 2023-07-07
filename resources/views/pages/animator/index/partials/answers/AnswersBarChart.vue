@@ -1,8 +1,10 @@
-<script setup>
-import { useInteractionStore } from "@/Stores/useInteractionStore.js";
+<script lang="ts" setup>
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 import { storeToRefs } from "pinia";
 
-defineEmits(["display"]);
+defineEmits<{
+    display: (questionChoice: App.Data.QuestionChoiceData, answers: App.Data.AnswerData[]) => void;
+}>();
 const interactionStore = useInteractionStore();
 const { currentInteraction } = storeToRefs(interactionStore);
 import { ref, computed } from "vue";
@@ -13,9 +15,9 @@ const questionChoices = ref(currentInteraction.value.question_choices);
 const getBarColor = (questionChoice) => {
     return questionChoice.is_correct_answer ? "primary" : "white";
 };
-const getQuestionChoiceAnswers = (questionChoice) => {
+const getQuestionChoiceAnswers = (questionChoice: App.Data.QuestionChoiceData) => {
     return currentInteraction.value.answers.filter(
-        (answer) => answer.replyable_id === questionChoice.id
+        (answer: App.Data.AnswerData) => answer.replyable_id === questionChoice.id
     );
 };
 /*
@@ -40,9 +42,7 @@ const maxValue = computed(() => {
 const getHeights = (questionChoice) => {
     const questionChoiceValue = getQuestionChoiceAnswers(questionChoice).length;
     if (maxValue.value !== 0) {
-        return (
-            (questionChoiceValue / maxValue.value) * (barMaxHeight - 50) + 50
-        );
+        return (questionChoiceValue / maxValue.value) * (barMaxHeight - 50) + 50;
     } else {
         return 50;
     }
@@ -50,10 +50,8 @@ const getHeights = (questionChoice) => {
 </script>
 
 <template>
-    <p class="font-light">
-        Cliquez sur les barres pour voir le détail des participants.
-    </p>
-    <div :class="`flex flex-row gap-3 h-[220px] items-end mt-5`">
+    <p class="font-light">Cliquez sur les barres pour voir le détail des participants.</p>
+    <div :class="`mt-5 flex h-[220px] flex-row items-end gap-3`">
         <div
             v-for="(questionChoice, i) of questionChoices"
             :id="questionChoice.id"
@@ -62,31 +60,21 @@ const getHeights = (questionChoice) => {
             class="bar"
             :class="`grid grid-cols-1 bg-${getBarColor(
                 questionChoice
-            )} bg-opacity-50 rounded-t-[20px] w-full justify-items-center content-between hover:bg-opacity-75`"
-            @click="
-                $emit(
-                    'display',
-                    questionChoice,
-                    getQuestionChoiceAnswers(questionChoice)
-                )
-            "
-        >
+            )} w-full content-between justify-items-center rounded-t-[20px] bg-opacity-50 hover:bg-opacity-75`"
+            @click="$emit('display', questionChoice, getQuestionChoiceAnswers(questionChoice))">
             <div>
                 Nb de réponses:
                 {{ getQuestionChoiceAnswers(questionChoice).length }}
             </div>
-            <div class="text-[#1c1354] text-md font-bold mx-2 text-center">
-                Réponse {{ i + 1 }}
-            </div>
+            <div class="text-md mx-2 text-center font-bold text-[#1c1354]">Réponse {{ i + 1 }}</div>
         </div>
     </div>
-    <div :class="`flex flex-row gap-3 mt-1`">
+    <div :class="`mt-1 flex flex-row gap-3`">
         <div
             v-for="questionChoice of questionChoices"
             :id="questionChoice.id"
             :key="questionChoice.id"
-            class="grid grid-cols-1 w-full text-white font-light text-sm mx-1 text-center"
-        >
+            class="mx-1 grid w-full grid-cols-1 text-center text-sm font-light text-white">
             <div>{{ questionChoice.value }}</div>
         </div>
     </div>

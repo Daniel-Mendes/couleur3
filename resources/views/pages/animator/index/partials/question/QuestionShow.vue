@@ -1,29 +1,26 @@
-<script setup>
-import BaseCard from "@/Components/Animator/Bases/BaseCard.vue";
-import BaseButton from "@/Components/Animator/Bases/BaseButton.vue";
-import BaseCountdown from "@/Components/Animator/Bases/BaseCountdown.vue";
-import BaseTabs from "@/Components/Animator/Bases/BaseTabs.vue";
-import BaseTab from "@/Components/Animator/Bases/BaseTab.vue";
-import AnswersBarChart from "@/Components/Animator/Answers/AnswersBarChart.vue";
-import AnswersList from "@/Components/Animator/Answers/AnswersList.vue";
-import AnswersSelectManual from "@/Components/Animator/Answers/AnswersSelectManual.vue";
-import AnswersSelectRandom from "@/Components/Animator/Answers/AnswersSelectRandom.vue";
-import AnswersSelectFastest from "@/Components/Animator/Answers/AnswersSelectFastest.vue";
-import AnswersSimple from "@/Components/Animator/Answers/AnswersSimple.vue";
-import InteractionType from "@/Enums/InteractionType.js";
-import Color from "@/Enums/Color.js";
-import { calculateDuration } from "@/Utils/time.js";
+<script lang="ts" setup>
+import BaseCard from "@/views/components/animator/basics/BaseCard.vue";
+import BaseButton from "@/views/components/animator/basics/BaseButton.vue";
+import BaseCountdown from "@/views/components/animator/basics/BaseCountdown.vue";
+import BaseTabs from "@/views/components/animator/basics/BaseTabs.vue";
+import BaseTab from "@/views/components/animator/basics/BaseTab.vue";
+import AnswersBarChart from "../answers/AnswersBarChart.vue";
+import AnswersList from "../answers/AnswersList.vue";
+import AnswersSelectManual from "../answers/AnswersSelectManual.vue";
+import AnswersSelectRandom from "../answers/AnswersSelectRandom.vue";
+import AnswersSelectFastest from "../answers/AnswersSelectFastest.vue";
+import AnswersSimple from "../answers/AnswersSimple.vue";
+import InteractionType from "@/scripts/enums/InteractionType.js";
+import Color from "@/scripts/enums/Color.js";
+import { calculateDuration } from "@/scripts/utils/time.js";
 import { ref } from "vue";
-import { useInteractionStore } from "@/Stores/useInteractionStore.js";
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 import { storeToRefs } from "pinia";
 
 const interactionStore = useInteractionStore();
 const { currentInteraction } = storeToRefs(interactionStore);
 
-const { min, sec } = calculateDuration(
-    currentInteraction.value.ended_at,
-    new Date()
-);
+const { min, sec } = calculateDuration(currentInteraction.value.ended_at, new Date());
 
 const activeTab = ref(0);
 const isDisplayed = ref(false);
@@ -42,46 +39,41 @@ function hideDetails() {
 
 <template>
     <BaseCard
-        v-if="
-            currentInteraction &&
-            InteractionType.isQuestion(currentInteraction.type)
-        "
-        :color="Color.PRIMARY"
-    >
+        v-if="currentInteraction && InteractionType.isQuestion(currentInteraction.type)"
+        :color="Color.PRIMARY">
         <template #title>
             <div class="flex flex-auto flex-row justify-between">
                 {{ currentInteraction.title }}
-                <BaseCountdown :color="Color.PRIMARY" :sec="sec" :min="min" />
+                <BaseCountdown
+                    :color="Color.PRIMARY"
+                    :sec="sec"
+                    :min="min" />
             </div>
         </template>
         <template #content>
-            <BaseTabs v-model="activeTab" :color="Color.PRIMARY">
+            <BaseTabs
+                v-model="activeTab"
+                :color="Color.PRIMARY">
                 <!--ANSWER LIST-->
                 <BaseTab title="Réponses">
                     <!--MCQ && SURVEY-->
                     <div v-if="isDisplayed">
                         <AnswersSimple
                             :question-choice="questionDisplayed"
-                            :answers="answersDisplayed"
-                        />
+                            :answers="answersDisplayed" />
                     </div>
                     <AnswersBarChart
                         v-if="
                             (currentInteraction.type === InteractionType.MCQ ||
-                                currentInteraction.type ===
-                                    InteractionType.SURVEY) &&
+                                currentInteraction.type === InteractionType.SURVEY) &&
                             !isDisplayed
                         "
-                        @display="displayDetails"
-                    />
+                        @display="displayDetails" />
 
                     <!--TEXT-->
-                    <div
-                        v-if="currentInteraction.type === InteractionType.TEXT"
-                    >
+                    <div v-if="currentInteraction.type === InteractionType.TEXT">
                         <p class="font-light">
-                            Cliquez sur les réponses que vous souhaitez épingler
-                            en haut de la liste.
+                            Cliquez sur les réponses que vous souhaitez épingler en haut de la liste.
                         </p>
                         <AnswersList />
                     </div>
@@ -90,21 +82,21 @@ function hideDetails() {
                 <!--SELECT MANUALLY-->
                 <BaseTab
                     v-if="currentInteraction.type === InteractionType.TEXT"
-                    title="Sélection manuelle"
-                >
+                    title="Sélection manuelle">
                     <!--TEXT-->
                     <AnswersSelectManual />
                 </BaseTab>
 
                 <!--SELECT RANDOM-->
-                <BaseTab title="Sélection aléatoire" :active="true">
+                <BaseTab
+                    title="Sélection aléatoire"
+                    :active="true">
                     <!--MCQ  random parmi les corrects -> pseudo des gagnants qui ont répondu juste-->
 
                     <!--SURVEY  pseudo des gagnant random + n° de la question? -->
                     <!--TEXT  pseudo des gagnant random + contenu text -->
                     <p class="font-light">
-                        Entrez le nombre d'auditeurs que vous souhaitez faire
-                        gagner aléatoirement.
+                        Entrez le nombre d'auditeurs que vous souhaitez faire gagner aléatoirement.
                     </p>
                     <AnswersSelectRandom />
                 </BaseTab>
@@ -112,16 +104,11 @@ function hideDetails() {
                 <!--SELECT FIRSTS-->
                 <BaseTab
                     v-if="currentInteraction.type === InteractionType.MCQ"
-                    title="Sélection des premiers"
-                >
+                    title="Sélection des premiers">
                     <div>
+                        <p class="font-light">Entrez le nombre d'auditeurs que vous souhaitez faire gagner.</p>
                         <p class="font-light">
-                            Entrez le nombre d'auditeurs que vous souhaitez
-                            faire gagner.
-                        </p>
-                        <p class="font-light">
-                            Cela sélectionne les plus rapides ayant répondu à la
-                            question correctement.
+                            Cela sélectionne les plus rapides ayant répondu à la question correctement.
                         </p>
                         <AnswersSelectFastest />
                     </div>
@@ -134,29 +121,23 @@ function hideDetails() {
                 <BaseButton
                     v-if="isDisplayed && activeTab === 0"
                     :color="`${Color.PRIMARY}`"
-                    @click="hideDetails()"
-                >
+                    @click="hideDetails()">
                     Retour
                 </BaseButton>
                 <!--END INTERACTION-->
                 <BaseButton
                     v-else
                     type="submit"
-                    @click="interactionStore.endInteraction()"
-                >
+                    @click="interactionStore.endInteraction()">
                     Fin de l'interaction
                 </BaseButton>
 
                 <!--CONFIRM MANUAL-->
                 <BaseButton
-                    v-if="
-                        activeTab === 1 &&
-                        currentInteraction.type === InteractionType.TEXT
-                    "
+                    v-if="activeTab === 1 && currentInteraction.type === InteractionType.TEXT"
                     type="submit"
                     :color="Color.PRIMARY"
-                    @click="interactionStore.submitManual()"
-                >
+                    @click="interactionStore.submitManual()">
                     Confirmer
                 </BaseButton>
 
@@ -165,28 +146,21 @@ function hideDetails() {
                     v-if="
                         (activeTab === 1 &&
                             (currentInteraction.type === InteractionType.MCQ ||
-                                currentInteraction.type ===
-                                    InteractionType.SURVEY)) ||
-                        (activeTab === 2 &&
-                            currentInteraction.type === InteractionType.TEXT)
+                                currentInteraction.type === InteractionType.SURVEY)) ||
+                        (activeTab === 2 && currentInteraction.type === InteractionType.TEXT)
                     "
                     type="submit"
                     :color="Color.PRIMARY"
-                    @click="interactionStore.submitRandom()"
-                >
+                    @click="interactionStore.submitRandom()">
                     Confirmer
                 </BaseButton>
 
                 <!--CONFIRM FASTEST-->
                 <BaseButton
-                    v-if="
-                        activeTab === 2 &&
-                        currentInteraction.type === InteractionType.MCQ
-                    "
+                    v-if="activeTab === 2 && currentInteraction.type === InteractionType.MCQ"
                     type="submit"
                     :color="Color.PRIMARY"
-                    @click="interactionStore.submitFastest()"
-                >
+                    @click="interactionStore.submitFastest()">
                     Confirmer
                 </BaseButton>
             </div>

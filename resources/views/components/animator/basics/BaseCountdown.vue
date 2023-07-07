@@ -1,20 +1,18 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from "vue";
 
-const props = defineProps({
-    color: {
-        type: String,
-        default: "primary",
-    },
-    sec: {
-        type: Number,
-        default: 0,
-    },
-    min: {
-        type: Number,
-        default: 0,
-    },
-});
+const props = withDefaults(
+    defineProps<{
+        color: string;
+        sec: number;
+        min: number;
+    }>(),
+    {
+        color: "primary",
+        sec: 0,
+        min: 0,
+    }
+);
 
 const seconds = ref(props.sec);
 const minutes = ref(props.min);
@@ -54,11 +52,10 @@ const interval = setInterval(() => {
 </script>
 <template>
     <div class="w-200 inline-block text-base">
-        <p class="text-center mb-3">Temps restant</p>
-        <div class="flex flex-row items-center gap-3 auto-cols-max text-white">
+        <p class="mb-3 text-center">Temps restant</p>
+        <div class="flex auto-cols-max flex-row items-center gap-3 text-white">
             <div
-                :class="`flex flex-col items-center p-4 bg-${bgColor} bg-opacity-${opacity} rounded-[20px] font-normal`"
-            >
+                :class="`flex flex-col items-center p-4 bg-${bgColor} bg-opacity-${opacity} rounded-[20px] font-normal`">
                 <span class="countdown font-medium">
                     <span :style="`--value: ${minutes}`"></span>
                 </span>
@@ -66,8 +63,7 @@ const interval = setInterval(() => {
             </div>
             <span>:</span>
             <div
-                :class="`flex flex-col items-center p-4 bg-${bgColor} bg-opacity-${opacity} rounded-[20px] font-normal`"
-            >
+                :class="`flex flex-col items-center p-4 bg-${bgColor} bg-opacity-${opacity} rounded-[20px] font-normal`">
                 <span class="countdown font-medium">
                     <span :style="`--value: ${seconds}`"></span>
                 </span>

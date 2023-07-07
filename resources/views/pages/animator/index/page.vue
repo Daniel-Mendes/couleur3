@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import BaseButton from "@/views/components/Animator/Bases/BaseButton.vue";
-import ChatView from "@/views/components/Animator/Chat/ChatView.vue";
-import QuickClickIndex from "@/views/components/Animator/QuickClick/QuickClickIndex.vue";
-import QuickClickCreate from "@/views/components/Animator/QuickClick/QuickClickCreate.vue";
-import QuickClickShow from "@/views/components/Animator/QuickClick/QuickClickShow.vue";
-import CtaIndex from "@/views/components/Animator/Cta/CtaIndex.vue";
-import CtaCreate from "@/views/components/Animator/Cta/CtaCreate.vue";
-import CtaShow from "@/views/components/Animator/Cta/CtaShow.vue";
-import QuestionCreate from "@/views/components/Animator/Question/QuestionCreate.vue";
-import QuestionShow from "@/views/components/Animator/Question/QuestionShow.vue";
-import InteractionType from "@/enums/InteractionType.js";
-import EndingMessage from "@/views/components/Animator/Answers/EndingMessage.vue";
+import BaseButton from "@/views/components/animator/basics/BaseButton.vue";
+import ChatView from "./partials/chat/ChatView.vue";
+import QuickClickIndex from "./partials/quick-click/QuickClickIndex.vue";
+import QuickClickCreate from "./partials/quick-click/QuickClickCreate.vue";
+import QuickClickShow from "./partials/quick-click/QuickClickShow.vue";
+import CtaIndex from "./partials/cta/CtaIndex.vue";
+import CtaCreate from "./partials/cta/CtaCreate.vue";
+import CtaShow from "./partials/cta/CtaShow.vue";
+import QuestionCreate from "./partials/question/QuestionCreate.vue";
+import QuestionShow from "./partials/question/QuestionShow.vue";
+import InteractionType from "@/scripts/enums/InteractionType.js";
+import EndingMessage from "./partials/answers/EndingMessage.vue";
 import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 
 const interactionStore = useInteractionStore();

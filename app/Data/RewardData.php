@@ -15,7 +15,7 @@ class RewardData extends Data
         public string $name,
         public string $description,
         #[DataCollectionOf(InteractionData::class)]
-        public DataCollection|Lazy $interactions
+        public Lazy|DataCollection $interactions
     ) {
     }
 

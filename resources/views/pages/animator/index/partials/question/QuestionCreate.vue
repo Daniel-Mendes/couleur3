@@ -1,18 +1,18 @@
-<script setup>
-import TextInput from "@/Components/TextInput.vue";
-import InputGroup from "@/Components/InputGroup.vue";
-import InputError from "@/Components/InputError.vue";
-import MultipleInputGroup from "@/Components/Animator/Bases/MultipleInputGroup.vue";
-import BaseCard from "@/Components/Animator/Bases/BaseCard.vue";
-import BaseButton from "@/Components/Animator/Bases/BaseButton.vue";
-import BaseRadioGroup from "@/Components/Animator/Bases/BaseRadioGroup.vue";
-import BaseDurationRange from "@/Components/Animator/Bases/BaseDurationRange.vue";
-import Color from "@/Enums/Color.js";
-import InteractionType from "@/Enums/InteractionType.js";
-import QuestionType from "@/Enums/QuestionType.js";
+<script lang="ts" setup>
+import TextInput from "@/views/components/TextInput.vue";
+import InputGroup from "@/views/components/InputGroup.vue";
+import InputError from "@/views/components/InputError.vue";
+import MultipleInputGroup from "@/views/components/animator/basics/MultipleInputGroup.vue";
+import BaseCard from "@/views/components/animator/basics/BaseCard.vue";
+import BaseButton from "@/views/components/animator/basics/BaseButton.vue";
+import BaseRadioGroup from "@/views/components/animator/basics/BaseRadioGroup.vue";
+import BaseDurationRange from "@/views/components/animator/basics/BaseDurationRange.vue";
+import Color from "@/scripts/enums/Color.js";
+import InteractionType from "@/scripts/enums/InteractionType.js";
+import QuestionType from "@/scripts/enums/QuestionType.js";
 import { watch, ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
-import { useInteractionStore } from "@/Stores/useInteractionStore.js";
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 import { storeToRefs } from "pinia";
 
 const interactionStore = useInteractionStore();

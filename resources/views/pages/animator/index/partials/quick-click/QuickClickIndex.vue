@@ -1,9 +1,8 @@
-<script setup>
-import BaseCard from "@/Components/Animator/Bases/BaseCard.vue";
-import BaseButton from "@/Components/Animator/Bases/BaseButton.vue";
-import InteractionType from "@/Enums/InteractionType.js";
-import { useInteractionStore } from "@/Stores/useInteractionStore.js";
-import Color from "@/Enums/Color.js";
+<script lang="ts" setup>
+import BaseCard from "@/views/components/animator/basics/BaseCard.vue";
+import BaseButton from "@/views/components/animator/basics/BaseButton.vue";
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
+import Color from "@/scripts/enums/Color.js";
 
 const interactionStore = useInteractionStore();
 </script>
@@ -11,18 +10,12 @@ const interactionStore = useInteractionStore();
 <template>
     <BaseCard :color="Color.ACCENT">
         <template #title>Rapidité</template>
-        <template #subtitle>
-            Envoyez un bouton de participation de rapidité aux auditeurs
-        </template>
+        <template #subtitle> Envoyez un bouton de participation de rapidité aux auditeurs </template>
 
         <template #actions>
             <BaseButton
                 :color="Color.ACCENT"
-                @click="
-                    interactionStore.creatingInteraction(
-                        InteractionType.QUICK_CLICK
-                    )
-                "
+                @click="interactionStore.creatingInteraction('QUICK_CLICK')"
                 >Créer</BaseButton
             >
         </template>

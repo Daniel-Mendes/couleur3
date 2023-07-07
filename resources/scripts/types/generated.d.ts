@@ -1,11 +1,11 @@
 declare namespace App.Data {
 export type AddressData = {
-id: number | null;
+id: number;
 street: string;
-zip_code: string;
 city: string;
+zip_code: string;
 country: string;
-auditor?: App.Data.UserData | null;
+auditor: App.Data.UserData | null;
 };
 export type AnswerData = {
 id: number;
@@ -15,7 +15,7 @@ interaction: App.Data.InteractionData;
 export type CallToActionData = {
 id: number;
 link: string;
-interaction: App.Data.InteractionData;
+interaction: App.Data.InteractionData | null;
 };
 export type InteractionData = {
 id: number;
@@ -24,12 +24,18 @@ type: App.Enums.InteractionType;
 call_to_action: App.Data.CallToActionData | null;
 question_choices: Array<App.Data.QuestionChoiceData>;
 answers: Array<App.Data.AnswerData>;
-animator: App.Data.UserData;
+animator: App.Data.UserData | null;
 reward: App.Data.RewardData | null;
 ended_at: string;
 winners_count: number | null;
-winners: Array<App.Data.UserData>;
+winners: Array<App.Data.UserData> | null;
 status: App.Enums.InteractionStatus;
+};
+export type MessageData = {
+id: number;
+content: string;
+auditor: App.Data.UserData;
+created_at: string;
 };
 export type NotificationData = {
 type: App.Enums.NotificationType;
@@ -39,7 +45,7 @@ export type QuestionChoiceData = {
 id: number;
 value: string;
 is_correct_answer: boolean;
-interaction: App.Data.InteractionData;
+interaction: App.Data.InteractionData | null;
 };
 export type RewardData = {
 id: number;

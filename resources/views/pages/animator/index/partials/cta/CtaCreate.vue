@@ -1,13 +1,13 @@
-<script setup>
-import InputGroup from "@/Components/InputGroup.vue";
-import TextInput from "@/Components/TextInput.vue";
-import InputError from "@/Components/InputError.vue";
-import BaseCard from "@/Components/Animator/Bases/BaseCard.vue";
-import BaseButton from "@/Components/Animator/Bases/BaseButton.vue";
-import BaseDurationRange from "@/Components/Animator/Bases/BaseDurationRange.vue";
-import Color from "@/Enums/Color.js";
+<script lang="ts" setup>
+import InputGroup from "@/views/components/InputGroup.vue";
+import TextInput from "@/views/components/TextInput.vue";
+import InputError from "@/views/components/InputError.vue";
+import BaseCard from "@/views/components/animator/basics/BaseCard.vue";
+import BaseButton from "@/views/components/animator/basics/BaseButton.vue";
+import BaseDurationRange from "@/views/components/animator/basics/BaseDurationRange.vue";
+import Color from "@/scripts/enums/Color.js";
 import { useForm } from "laravel-precognition-vue-inertia";
-import { useInteractionStore } from "@/Stores/useInteractionStore.js";
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 
 const interactionStore = useInteractionStore();
 

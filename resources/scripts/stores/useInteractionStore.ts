@@ -12,11 +12,11 @@ export const useInteractionStore = defineStore(
             hasAnswerd: false,
             currentInteraction: page.props.interaction as App.Data.InteractionData,
             winnersCount: 1,
-            chosedWinners: [],
-            rewards: page.props.rewards,
-            chosedReward: null,
+            chosedWinners: [] as App.Data.UserData[],
+            rewards: page.props.rewards as App.Data.RewardData[],
+            chosedReward: null as App.Data.RewardData,
             errors: {},
-            pinnedAnswers: [],
+            pinnedAnswers: [] as App.Data.AnswerData[],
         });
 
         const notPinnedAnswers = computed(() =>

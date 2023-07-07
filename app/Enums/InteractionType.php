@@ -2,6 +2,9 @@
 
 namespace App\Enums;
 
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
+
+#[TypeScript]
 enum InteractionType: string
 {
     case MCQ = 'MCQ';

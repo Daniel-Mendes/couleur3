@@ -1,9 +1,9 @@
-<script setup>
-import MessageItem from "@/Components/MessageItem.vue";
-import BaseCard from "@/Components/Animator/Bases/BaseCard.vue";
-import BaseButton from "@/Components/Animator/Bases/BaseButton.vue";
-import Color from "@/Enums/Color.js";
-import { useChatStore } from "@/Stores/useChatStore.js";
+<script lang="ts" setup>
+import MessageItem from "@/views/components/MessageItem.vue";
+import BaseCard from "@/views/components/animator/basics/BaseCard.vue";
+import BaseButton from "@/views/components/animator/basics/BaseButton.vue";
+import Color from "@/scripts/enums/Color.js";
+import { useChatStore } from "@/scripts/stores/useChatStore.js";
 import { storeToRefs } from "pinia";
 import { useForm } from "@inertiajs/vue3";
 import { watch } from "vue";

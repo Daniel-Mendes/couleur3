@@ -1,17 +1,13 @@
-<script setup>
-import { onMounted, ref, defineModel } from "vue";
-
-defineProps({
-    id: {
-        type: String,
-        required: true,
-    },
-    color: {
-        type: String,
-        required: false,
-        default: "primary",
-    },
-});
+<script lang="ts" setup>
+withDefaults(
+    defineProps<{
+        id: string;
+        color?: string;
+    }>(),
+    {
+        color: "primary",
+    }
+);
 
 const modelValue = defineModel();
 
@@ -32,6 +28,5 @@ defineExpose({ focus: () => input.value.focus() });
         ref="input"
         v-model="modelValue"
         type="text"
-        :class="`input input-md input-bordered border-white focus:invalid:border-error invalid:text-error focus:invalid:text-error invalid:border-error focus:border-2 focus:border-${color} focus:ring-0 bg-transparent w-full rounded-full font-light text-white`"
-    />
+        :class="`input-bordered input input-md invalid:border-error invalid:text-error focus:border-2 focus:invalid:border-error focus:invalid:text-error focus:border-${color} w-full rounded-full bg-transparent font-light text-white focus:ring-0`" />
 </template>

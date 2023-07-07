@@ -44,10 +44,13 @@ class AnimatorController extends Controller
         ChatUpdated::dispatch($settings->chat_enabled);
 
         $currentInteraction = Interaction::pending()->first();
-        $currentInteraction->update([
-            'ended_at' => now(),
-            'status' => InteractionStatus::STOPPED,
-        ]);
+
+        if ($currentInteraction) {
+            $currentInteraction->update([
+                'ended_at' => now(),
+                'status' => InteractionStatus::STOPPED,
+            ]);
+        }
 
         broadcast(new InteractionEndedEvent())->toOthers();
 

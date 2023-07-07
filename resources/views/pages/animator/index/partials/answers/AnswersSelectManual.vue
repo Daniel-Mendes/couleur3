@@ -1,15 +1,14 @@
-<script setup>
-import BaseCheckbox from "@/Components/Animator/Bases/BaseCheckbox.vue";
-import SelectReward from "@/Components/Animator/Answers/SelectReward.vue";
-import Color from "@/Enums/Color.js";
-import { calculateDuration, formatDuration } from "@/Utils/time.js";
-import { useInteractionStore } from "@/Stores/useInteractionStore.js";
+<script lang="ts" setup>
+import BaseCheckbox from "@/views/components/animator/basics/BaseCheckbox.vue";
+import SelectReward from "./SelectReward.vue";
+import Color from "@/scripts/enums/Color.js";
+import { calculateDuration, formatDuration } from "@/scripts/utils/time.js";
+import { useInteractionStore } from "@/scripts/stores/useInteractionStore.js";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
 const interactionStore = useInteractionStore();
-const { pinnedAnswers, notPinnedAnswers, currentInteraction, chosedWinners } =
-    storeToRefs(interactionStore);
+const { pinnedAnswers, notPinnedAnswers, currentInteraction, chosedWinners } = storeToRefs(interactionStore);
 
 const pinnedCandidates = ref(pinnedAnswers);
 const candidates = ref(notPinnedAnswers);
@@ -17,53 +16,31 @@ const candidates = ref(notPinnedAnswers);
 
 <template>
     <div>
-        <div class="flex flex-row items-top justify-between">
+        <div class="items-top flex flex-row justify-between">
             <div class="grow">
-                <p class="font-light">
-                    Sélectionnez les réponses que vous souhaitez faire gagner.
-                </p>
+                <p class="font-light">Sélectionnez les réponses que vous souhaitez faire gagner.</p>
             </div>
-            <div class="flex flex-row shrink">
-                <p class="text-sm font-light w-24">
-                    Sélectionner toutes les épingles
-                </p>
+            <div class="flex shrink flex-row">
+                <p class="w-24 text-sm font-light">Sélectionner toutes les épingles</p>
                 <BaseCheckbox
                     :color="Color.forInteractionType(currentInteraction.type)"
-                    @change="
-                        interactionStore.updatePinnedAsChosedWinners(
-                            pinnedCandidates
-                        )
-                    "
-                />
+                    @change="interactionStore.updatePinnedAsChosedWinners(pinnedCandidates)" />
             </div>
         </div>
 
-        <div class="overflow-x-auto h-[22vh] mt-4 pl-1 pt-1">
+        <div class="mt-4 h-[22vh] overflow-x-auto pl-1 pt-1">
             <div>
                 <!-- Array pinned -->
                 <ul class="flex flex-col gap-4">
                     <li
                         v-for="pinnedCandidate of pinnedCandidates"
                         :key="pinnedCandidate.id"
-                        class="flex flex-row items-center gap-2 text-md"
-                    >
+                        class="text-md flex flex-row items-center gap-2">
                         <BaseCheckbox
-                            :color="
-                                Color.forInteractionType(
-                                    currentInteraction.type
-                                )
-                            "
-                            :checked="
-                                chosedWinners.length > 0 &&
-                                chosedWinners.indexOf(pinnedCandidate) != -1
-                            "
+                            :color="Color.forInteractionType(currentInteraction.type)"
+                            :checked="chosedWinners.length > 0 && chosedWinners.indexOf(pinnedCandidate) != -1"
                             class="mr-1"
-                            @change="
-                                interactionStore.updateChosedWinner(
-                                    pinnedCandidate
-                                )
-                            "
-                        />
+                            @change="interactionStore.updateChosedWinner(pinnedCandidate)" />
 
                         <div class="font-bold">
                             {{ pinnedCandidate.auditor.user.name }}
@@ -73,19 +50,15 @@ const candidates = ref(notPinnedAnswers);
                             a répondu en
                             {{
                                 formatDuration(
-                                    calculateDuration(
-                                        pinnedCandidate.created_at,
-                                        currentInteraction.created_at
-                                    )
+                                    calculateDuration(pinnedCandidate.created_at, currentInteraction.created_at)
                                 )
                             }}
                         </div>
 
                         <div
-                            :class="`fill-current material-symbols-fill material-symbols-rounded text-2xl font-thin text-${Color.forInteractionType(
+                            :class="`material-symbols-fill material-symbols-rounded fill-current text-2xl font-thin text-${Color.forInteractionType(
                                 currentInteraction.type
-                            )}`"
-                        >
+                            )}`">
                             push_pin
                         </div>
                     </li>
@@ -98,44 +71,25 @@ const candidates = ref(notPinnedAnswers);
                         v-for="candidate of candidates"
                         :key="candidate.value"
                         :for="candidate.value"
-                        class="flex flex-row items-center gap-2 text-md"
-                    >
+                        class="text-md flex flex-row items-center gap-2">
                         <BaseCheckbox
-                            :color="
-                                Color.forInteractionType(
-                                    currentInteraction.type
-                                )
-                            "
-                            :checked="
-                                chosedWinners.length > 0 &&
-                                chosedWinners.indexOf(candidate) != -1
-                            "
+                            :color="Color.forInteractionType(currentInteraction.type)"
+                            :checked="chosedWinners.length > 0 && chosedWinners.indexOf(candidate) != -1"
                             class="mr-1"
-                            @change="
-                                interactionStore.updateChosedWinner(candidate)
-                            "
-                        />
+                            @change="interactionStore.updateChosedWinner(candidate)" />
 
                         <div class="font-bold">
                             {{ candidate.auditor.user.name }}
                         </div>
 
                         <div class="text-base">
-                            {{
-                                formatDuration(
-                                    calculateDuration(
-                                        candidate.created_at,
-                                        currentInteraction.created_at
-                                    )
-                                )
-                            }}
+                            {{ formatDuration(calculateDuration(candidate.created_at, currentInteraction.created_at)) }}
                         </div>
 
                         <div
-                            :class="`fill-current material-symbols-rounded text-2xl font-thin text-${Color.forInteractionType(
+                            :class="`material-symbols-rounded fill-current text-2xl font-thin text-${Color.forInteractionType(
                                 currentInteraction.type
-                            )}`"
-                        >
+                            )}`">
                             push_pin
                         </div>
                     </li>

@@ -9,9 +9,9 @@ export const useChatStore = defineStore("chat", () => {
         isChatEnabled.value = page.props.chatEnabled;
     });
 
-    const messages = ref([]);
+    const messages = ref([] as App.Data.MessageData[]);
 
-    const addMessage = (message) => {
+    const addMessage = (message: App.Data.MessageData) => {
         messages.value.push(message);
     };
 

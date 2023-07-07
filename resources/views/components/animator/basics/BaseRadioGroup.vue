@@ -1,26 +1,18 @@
-<script setup>
-defineProps({
-    choices: {
-        type: Array,
-        required: true,
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-});
+<script lang="ts" setup>
+defineProps<{
+    choices: [];
+    name: string;
+}>();
 
-defineEmits(["update:modelValue"]);
-
+defineEmits<{ "update:modelValue": void }>();
 </script>
 <template class="">
-    <div class="grid grid-cols-3 gap-3 grid-rows-2">
+    <div class="grid grid-cols-3 grid-rows-2 gap-3">
         <label
             v-for="choice of choices"
             :key="choice.value"
             :for="choice.value"
-            class="btn btn-md btn-white text-white text-2xl bg-opacity-50 border-2 border-transparent rounded-[10px] gap-5"
-        >
+            class="btn-white btn-md btn gap-5 rounded-[10px] border-2 border-transparent bg-opacity-50 text-2xl text-white">
             <span class="material-symbols-rounded text-4xl">
                 {{ choice.icon }}
             </span>
@@ -30,8 +22,7 @@ defineEmits(["update:modelValue"]);
                 :name="name"
                 type="radio"
                 class="hidden"
-                @input="$emit('update:modelValue', choice.value)"
-            />
+                @input="$emit('update:modelValue', choice.value)" />
             <span class="hidden lg:block">{{ choice.name }}</span>
         </label>
     </div>
@@ -39,6 +30,6 @@ defineEmits(["update:modelValue"]);
 
 <style lang="postcss" scoped>
 label:has(input:checked) {
-    @apply bg-primary bg-opacity-50 border-primary border-2;
+    @apply border-2 border-primary bg-primary bg-opacity-50;
 }
 </style>

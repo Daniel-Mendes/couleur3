@@ -1,18 +1,22 @@
-<script setup>
-import { reactive, computed, provide } from "vue";
+<script lang="ts" setup>
+import { computed, provide, reactive } from "vue";
+import Color from "@/scripts/enums/Color.js";
 
-defineProps({
-    color: {
-        type: String,
-        default: "primary",
-    },
-    modelValue: {
-        type: Number,
-        default: 0,
-    },
-});
+withDefaults(
+    defineProps<{
+        color: {
+            type: String;
+            default: "primary";
+        };
+        modelValue: number;
+    }>(),
+    {
+        color: Color.PRIMARY,
+        modelValue: 0,
+    }
+);
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits<{ "update:modelValue": void }>();
 
 const tabs = reactive({
     labels: [],
@@ -38,16 +42,12 @@ function changeTab(i) {
             <label
                 v-for="(label, index) in tabs.labels"
                 :key="index"
-                :class="`tab ${
-                    index === active ? `tab-active tab-active-${color}` : ''
-                }`"
-            >
+                :class="`tab ${index === active ? `tab-active tab-active-${color}` : ''}`">
                 <input
                     :value="modelValue"
                     type="radio"
                     class="hidden"
-                    @click="changeTab(index)"
-                />
+                    @click="changeTab(index)" />
                 {{ label }}
             </label>
         </ul>
@@ -57,10 +57,10 @@ function changeTab(i) {
 
 <style lang="postcss" scoped>
 .tabs-boxed {
-    @apply bg-white bg-opacity-50 rounded-full gap-1;
+    @apply gap-1 rounded-full bg-white bg-opacity-50;
 }
 .tab {
-    @apply tab-lg flex-auto font-bold text-white rounded-full border-2 border-transparent hover:border-white hover:bg-white hover:bg-opacity-50;
+    @apply tab-lg flex-auto rounded-full border-2 border-transparent font-bold text-white hover:border-white hover:bg-white hover:bg-opacity-50;
 }
 
 .tab-active-primary {

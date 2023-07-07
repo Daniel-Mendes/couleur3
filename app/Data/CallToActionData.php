@@ -9,7 +9,7 @@ class CallToActionData extends Data
     public function __construct(
         public int $id,
         public string $link,
-        public InteractionData $interaction
+        public ?InteractionData $interaction
     ) {
     }
 }
