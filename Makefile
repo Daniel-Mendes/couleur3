@@ -31,7 +31,7 @@ lint: phpstan eslint ## Run all linters
 
 .PHONY: pest
 pest: ## Run tets with Pest
-	./vendor/bin/pest --parallel
+	./vendor/bin/pest --parallel --compact
 
 test: pest ## Run all tests
 
